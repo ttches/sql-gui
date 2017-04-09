@@ -1,0 +1,37 @@
+{
+  "name": "sql-gui",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-redux": "^5.0.3",
+    "redux": "^3.6.0"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.1",
+    "eslint": "^3.19.0",
+    "eslint-plugin-flowtype": "^2.30.4",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3",
+    "gh-pages": "^0.12.0",
+    "nib": "^1.1.2",
+    "npm-run-all": "^4.0.2",
+    "react-scripts": "0.9.5",
+    "stylus": "^0.54.5"
+  },
+  "scripts": {
+    "start": "npm-run-all -p watch-css start-js",
+    "start-js": "react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "watch-css": "stylus -w -u nib D:\\Documents\\Programming\\sql-gui\\src\\index.styl -o D:\\Documents\\Programming\\sql-gui\\src"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "homepage": "https://ttches.github.io/sql-gui/"
+}
