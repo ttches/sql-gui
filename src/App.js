@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
-import TablesDropdownContainer from './containers/TablesDropdownContainer';
+import TableTabsContainer from './containers/TableTabsContainer';
 
 class App extends Component {
   render() {
     return (
       <div>
-        <TablesDropdownContainer />
+        <TableTabsContainer />
       </div>
     );
   }
