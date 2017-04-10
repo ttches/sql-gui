@@ -6,8 +6,12 @@ export default class TableTabs extends Component {
   render() {
 
     function renderTableTabs(tableTab, i) {
-      console.log(tableTab);
-      return <TablesDropdownContainer key={i} selectedTable={tableTab} />
+      return (
+        <div key={i}>
+          <TablesDropdownContainer selectedTable={tableTab} />
+          <button>close</button>
+        </div>
+      );
     }
 
 

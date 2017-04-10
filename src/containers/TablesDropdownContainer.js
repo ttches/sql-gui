@@ -2,26 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import TablesDropdown from '../components/TablesDropdown';
+import { updateTableTabs } from '../actions/index';
 
 class TablesDropdownContainer extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
+      oldSelectedTable: '',
       selectedTable: this.props.selectedTable
     };
   }
 
+  //When select changes, update state
   handleChange(e) {
     this.setState({
+      oldSelectedTable: this.state.selectedTable,
       selectedTable: e.target.value
     });
+    this.props.updateTableTabs([this.state.oldSelectedTable, this.state.selectedTable]);
   }
 
   render() {
     const { tables, tabs } = this.props.selected;
-    const selectedTable = this.state;
+    const { selectedTable } = this.state;
 
+    //Maps an array of all available tables
     function generateUnusedTables () {
       return tables.filter((table) => {
         return (selectedTable === table || tabs.indexOf(table) === -1);
@@ -31,7 +37,7 @@ class TablesDropdownContainer extends Component {
     return (
       <TablesDropdown
         tables={generateUnusedTables()}
-        selectedTable={this.state.selectedTable}
+        selectedTable={selectedTable}
         handleChange={this.handleChange}/>
     );
   }
@@ -43,4 +49,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(TablesDropdownContainer);
+export default connect(mapStateToProps, { updateTableTabs })(TablesDropdownContainer);
