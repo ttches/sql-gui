@@ -4,11 +4,21 @@ import { connect } from 'react-redux';
 import TableTabs from '../components/TableTabs';
 
 class TableTabsContainer extends Component {
+  constructor(){
+    super();
+    this.handleCloseTab = this.handleCloseTab.bind(this);
+  }
+
+  handleCloseTab(e) {
+    console.log(e.target);
+  }
+
   render() {
 
     return (
       <TableTabs
-        tabs={this.props.tableTabs} />
+        tabs={this.props.tableTabs}
+        handleClick={this.props.handleCloseTab}/>
     );
   }
 }

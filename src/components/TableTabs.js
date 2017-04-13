@@ -9,7 +9,7 @@ export default class TableTabs extends Component {
       return (
         <div key={i}>
           <TablesDropdownContainer selectedTable={tableTab} />
-          <button>close</button>
+          <button onClick={this.props.handleClick}>close</button>
         </div>
       );
     }
