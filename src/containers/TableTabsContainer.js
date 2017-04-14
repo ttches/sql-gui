@@ -2,16 +2,29 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import TableTabs from '../components/TableTabs';
-import { closeTableTab } from '../actions/index';
+import { closeTableTab, addTableTab } from '../actions/index';
 
 class TableTabsContainer extends Component {
   constructor(props){
     super(props);
-    this.handleCloseTab = this.handleCloseTab.bind(this);
+    this.handleCloseTableTab = this.handleCloseTableTab.bind(this);
+    this.handleAddTableTab = this.handleAddTableTab.bind(this);
   }
 
-  handleCloseTab(e) {
+  handleCloseTableTab(e) {
     this.props.closeTableTab(e.target.dataset.table);
+  }
+
+  //Sends an unused table to action or give error.
+  handleAddTableTab() {
+    let { tables, tabs } = this.props.selected;
+    for (let table of tables) {
+      if (tabs.indexOf(table) === -1) {
+        this.props.addTableTab(table);
+        return;
+      }
+    }
+    alert('All tables are in use');
   }
 
   render() {
@@ -19,7 +32,8 @@ class TableTabsContainer extends Component {
     return (
       <TableTabs
         tabs={this.props.selected.tabs}
-        handleClick={this.handleCloseTab} />
+        closeTableTab={this.handleCloseTableTab}
+        addTableTab={this.handleAddTableTab} />
     );
   }
 }
@@ -30,4 +44,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { closeTableTab })(TableTabsContainer);
+export default connect(mapStateToProps,
+  { closeTableTab, addTableTab })(TableTabsContainer);

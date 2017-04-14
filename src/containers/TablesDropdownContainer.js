@@ -19,7 +19,7 @@ class TablesDropdownContainer extends Component {
     this.setState({
       selectedTable: e.target.value
     }, function() {
-  //After state updates, update TableTabs.
+      //After state updates, update TableTabs.
       this.props.updateTableTabs([oldSelectedTable, this.state.selectedTable]);
     });
   }
