@@ -13,14 +13,28 @@ const INITIAL_STATE = {
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
+
     case UPDATE_TABLE_TABS:
       const oldTab = action.payload[0];
       const newTab = action.payload[1];
       let workingState = {...state};
-      workingState.tabs.splice(workingState.tabs.indexOf(oldTab), 1, newTab);
+      const oldTabIndex = workingState.tabs.indexOf(oldTab);
+      if (oldTabIndex === -1) {
+        workingState.tabs.push(newTab);
+      } else {
+        workingState.tabs.splice(workingState.tabs.indexOf(oldTab), 1, newTab);
+      }
       return workingState;
+
     case CLOSE_TABLE_TAB:
-      return state;
+      workingState = {...state};
+      const closeTabIndex = workingState.tabs.indexOf(action.payload);
+      if (closeTabIndex === -1) {
+        return state;
+      } else {
+        workingState.tabs.splice(closeTabIndex, 1);
+        return workingState;
+      }
     default:
       return state;
   }

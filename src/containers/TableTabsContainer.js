@@ -2,31 +2,32 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import TableTabs from '../components/TableTabs';
+import { closeTableTab } from '../actions/index';
 
 class TableTabsContainer extends Component {
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.handleCloseTab = this.handleCloseTab.bind(this);
   }
 
   handleCloseTab(e) {
-    console.log(e.target);
+    this.props.closeTableTab(e.target.dataset.table);
   }
 
   render() {
 
     return (
       <TableTabs
-        tabs={this.props.tableTabs}
-        handleClick={this.props.handleCloseTab}/>
+        tabs={this.props.selected.tabs}
+        handleClick={this.handleCloseTab} />
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    tableTabs: state.selected.tabs
+    selected: state.selected
   };
 }
 
-export default connect(mapStateToProps)(TableTabsContainer);
+export default connect(mapStateToProps, { closeTableTab })(TableTabsContainer);

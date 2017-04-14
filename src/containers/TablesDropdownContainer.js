@@ -9,25 +9,31 @@ class TablesDropdownContainer extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      oldSelectedTable: '',
       selectedTable: this.props.selectedTable
     };
   }
 
   //When select changes, update state
   handleChange(e) {
+    let oldSelectedTable = this.state.selectedTable;
     this.setState({
-      oldSelectedTable: this.state.selectedTable,
       selectedTable: e.target.value
     }, function() {
   //After state updates, update TableTabs.
-      this.props.updateTableTabs([this.state.oldSelectedTable, this.state.selectedTable]);
+      this.props.updateTableTabs([oldSelectedTable, this.state.selectedTable]);
     });
   }
 
+  //Updates state when props changes, otherwise breaks state when tableTab is deleted
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selectedTable: nextProps.selectedTable
+    })
+  }
+
   render() {
-    const { tables, tabs } = this.props.selected;
-    const { selectedTable } = this.state;
+    let { tables, tabs } = this.props.selected;
+    let { selectedTable } = this.state;
 
     //Maps an array of all available tables
     function generateUnusedTables () {
