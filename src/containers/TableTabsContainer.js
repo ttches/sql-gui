@@ -9,6 +9,10 @@ class TableTabsContainer extends Component {
     super(props);
     this.handleCloseTableTab = this.handleCloseTableTab.bind(this);
     this.handleAddTableTab = this.handleAddTableTab.bind(this);
+    this.handleTableTabSelect = this.handleTableTabSelect.bind(this);
+    this.state = {
+      selectedTableTab: ''
+    };
   }
 
   handleCloseTableTab(e) {
@@ -20,6 +24,7 @@ class TableTabsContainer extends Component {
     let { tables, tabs } = this.props.selected;
     for (let table of tables) {
       if (tabs.indexOf(table) === -1) {
+        this.handleTableTabSelect(table)
         this.props.addTableTab(table);
         return;
       }
@@ -27,13 +32,23 @@ class TableTabsContainer extends Component {
     alert('All tables are in use');
   }
 
+  //Changes the selected table, can take either a table name or an html event
+  handleTableTabSelect(e) {
+    const selectedTableTab = (e.target) ? e.target.dataset.table : e;
+    this.setState({
+      selectedTableTab
+    });
+  }
+
   render() {
 
     return (
       <TableTabs
-        tabs={this.props.selected.tabs}
-        closeTableTab={this.handleCloseTableTab}
-        addTableTab={this.handleAddTableTab} />
+        onCloseTableTab={this.handleCloseTableTab}
+        onAddTableTab={this.handleAddTableTab}
+        onTableTabSelect={this.handleTableTabSelect}
+        selectedTableTab={this.state.selectedTableTab}
+        tabs={this.props.selected.tabs}  />
     );
   }
 }

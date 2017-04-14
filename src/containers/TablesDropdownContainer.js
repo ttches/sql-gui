@@ -44,9 +44,9 @@ class TablesDropdownContainer extends Component {
 
     return (
       <TablesDropdown
-        tables={generateUnusedTables()}
+        handleChange={this.handleChange}
         selectedTable={selectedTable}
-        handleChange={this.handleChange}/>
+        tables={generateUnusedTables()} />
     );
   }
 }

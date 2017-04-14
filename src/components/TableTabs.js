@@ -5,16 +5,27 @@ import TablesDropdownContainer from '../containers/TablesDropdownContainer';
 export default class TableTabs extends Component {
   render() {
 
-    const closeTableTab = this.props.closeTableTab
+    const { onCloseTableTab, selectedTableTab, onTableTabSelect } = this.props;
 
+    //Only the selectedTableTab should appear as a selection, the other tables are spans
     function renderTableTabs(tableTab, i) {
-      console.log(tableTab);
-      return (
-        <div key={i}>
-          <TablesDropdownContainer selectedTable={tableTab} />
-          <button onClick={closeTableTab} data-table={tableTab}>x</button>
-        </div>
-      );
+      if (tableTab === selectedTableTab) {
+        return (
+          <div key={i}>
+            <TablesDropdownContainer selectedTable={tableTab} />
+            <button onClick={onCloseTableTab} data-table={tableTab}>x</button>
+          </div>
+        );
+
+      } else {
+        return (
+          <div key={i}>
+            <span onClick={onTableTabSelect}
+              data-table={tableTab}>{tableTab}</span>
+            <button onClick={onCloseTableTab} data-table={tableTab}>x</button>
+          </div>
+        );
+      }
     }
 
 
@@ -24,7 +35,7 @@ export default class TableTabs extends Component {
         <button
           className='add-table-tab'
           style={{display: `${(this.props.tabs.length > 10) ? 'none' : 'block'}`}}
-          onClick={this.props.addTableTab}>
+          onClick={this.props.onAddTableTab}>
             Add Table
           </button>
       </div>
