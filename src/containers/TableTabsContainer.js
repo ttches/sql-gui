@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import TableTabs from '../components/TableTabs';
-import { closeTableTab, addTableTab } from '../actions/index';
+import { closeTableTab, addTableTab, updateSelectedTableTab } from '../actions/index';
 
 class TableTabsContainer extends Component {
   constructor(props){
@@ -24,7 +24,6 @@ class TableTabsContainer extends Component {
     let { tables, tabs } = this.props.selected;
     for (let table of tables) {
       if (tabs.indexOf(table) === -1) {
-        this.handleTableTabSelect(table)
         this.props.addTableTab(table);
         return;
       }
@@ -35,9 +34,7 @@ class TableTabsContainer extends Component {
   //Changes the selected table, can take either a table name or an html event
   handleTableTabSelect(e) {
     const selectedTableTab = (e.target) ? e.target.dataset.table : e;
-    this.setState({
-      selectedTableTab
-    });
+    this.props.updateSelectedTableTab(selectedTableTab);
   }
 
   render() {
@@ -47,7 +44,7 @@ class TableTabsContainer extends Component {
         onCloseTableTab={this.handleCloseTableTab}
         onAddTableTab={this.handleAddTableTab}
         onTableTabSelect={this.handleTableTabSelect}
-        selectedTableTab={this.state.selectedTableTab}
+        selectedTableTab={this.props.selected.selectedTab}
         tabs={this.props.selected.tabs}  />
     );
   }
@@ -60,4 +57,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps,
-  { closeTableTab, addTableTab })(TableTabsContainer);
+  { closeTableTab, addTableTab,
+  updateSelectedTableTab })(TableTabsContainer);
