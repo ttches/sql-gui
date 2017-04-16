@@ -6,22 +6,26 @@ import Records from '../components/Records';
 class RecordsSelectContainer extends Component {
   constructor(props) {
     super(props);
-    this.generateRecords = this.generateRecords.bind(this);
-  }
 
-  generateRecords(table, i) {
-    return <Records key={i}
-      recordType='selected'
-      recordList={this.props.SQLData[table]}
-      />
-    }
+    this.state = {
+      viewRecords: 'selected'
+    };
+  }
 
   render() {
 
+    console.log(this.props.SQLData[this.props.selected.selectedTab]);
 
     return (
-      <div>
-        {this.props.selected.tabs.map(this.generateRecords)}
+      <div style={{width: '100%'}}>
+        <div className="records-tabs">
+          <div className="selected-records-tab">Selected Records</div>
+          <div className="filtered-records-tab">Filtered Records</div>
+        </div>
+       <Records
+        recordType={this.state.viewRecords}
+        recordList={this.props.SQLData[this.props.selected.selectedTab]}
+        />
       </div>
     );
   }
