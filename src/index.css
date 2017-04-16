@@ -122,3 +122,34 @@ video {
   box-sizing: border-box;
   font: main-font;
 }
+.console-filtered {
+  border: 1px solid #000;
+  min-height: 35px;
+  width: 50%;
+}
+.console-selected {
+  border: 1px solid #000;
+  min-height: 35px;
+  width: 50%;
+}
+.console {
+  background-color: light-blue;
+  border: 1px solid #000;
+  height: 70px;
+  width: 100%;
+}
+.table-tabs {
+  max-height: 70px;
+  max-width: 150px;
+  width: 15%;
+}
+.table-tab > div,
+.table-tab select {
+  display: -webkit-inline-box;
+  display: -moz-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-box;
+  display: inline-flex;
+  width: 100px;
+}

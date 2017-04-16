@@ -11,7 +11,7 @@ export default class TableTabs extends Component {
     function renderTableTabs(tableTab, i) {
       if (tableTab === selectedTableTab) {
         return (
-          <div key={i}>
+          <div className='table-tab' key={i}>
             <TablesDropdownContainer selectedTable={tableTab} />
             <button onClick={onCloseTableTab} data-table={tableTab}>x</button>
           </div>
@@ -19,9 +19,9 @@ export default class TableTabs extends Component {
 
       } else {
         return (
-          <div key={i}>
-            <span onClick={onTableTabSelect}
-              data-table={tableTab}>{tableTab}</span>
+          <div className='table-tab' key={i}>
+            <div onClick={onTableTabSelect}
+              data-table={tableTab}>{tableTab}</div>
             <button onClick={onCloseTableTab} data-table={tableTab}>x</button>
           </div>
         );
@@ -30,7 +30,7 @@ export default class TableTabs extends Component {
 
 
     return (
-      <div>
+      <div className='table-tabs'>
         {this.props.tabs.map(renderTableTabs)}
         <button
           className='add-table-tab'
