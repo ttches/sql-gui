@@ -3,10 +3,20 @@ import React, { Component } from 'react';
 export default class Records extends Component {
   render() {
 
+    const { selectedTab, handleToggle, recordType,
+    checkRecordSelectedOrFiltered } = this.props;
+
     function generateRecordButtons(record, i) {
+      //formats as TableName.RecordName
+      let tableRecord = `${selectedTab}.${record}`
       return (
         <div key={i}
-          className='record-button'>{record}</div>
+          className={`record-button ${(checkRecordSelectedOrFiltered(tableRecord))
+            ? `record-button-${recordType}`
+            : ''}`}
+          data-record={tableRecord}
+          onClick={handleToggle}>{record}
+        </div>
       );
     }
 
