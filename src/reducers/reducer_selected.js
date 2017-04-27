@@ -9,9 +9,9 @@ const INITIAL_STATE = {
   selectedTab: '',
   lessThan: {},
   greaterThan: {},
-  not: [],
-  like: [],
-  equal: {}
+  equal: {},
+  not: {}, //not and like will need to be key:[not, not]
+  like: {}
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -36,7 +36,17 @@ export default function(state = INITIAL_STATE, action) {
       if (closeTabIndex === -1) {
         return state;
       } else {
+        //Remove everything selected by the closed table
+        const reg = new RegExp(`^(${action.payload}\\.)`, 'i');
         workingState.tabs.splice(closeTabIndex, 1);
+        workingState.targets = workingState.targets.filter((target) => {
+          return !target.match(reg);
+        });
+        delete workingState.lessThan[action.payload];
+        delete workingState.greaterThan[action.payload];
+        delete workingState.equal[action.payload];
+        delete workingState.not[action.payload];
+        delete workingState.like[action.payload];
         return workingState;
       }
 

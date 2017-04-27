@@ -28,7 +28,7 @@
     "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "watch-css": "stylus -w -u nib D:\\Documents\\Programming\\sql-gui\\src\\index.styl -o D:\\Documents\\Programming\\sql-gui\\src"
+    "watch-css": "stylus -w -u nib src/index.styl -o src"
   },
   "eslintConfig": {
     "extends": "react-app"
