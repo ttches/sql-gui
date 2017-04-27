@@ -3,6 +3,7 @@ export const CLOSE_TABLE_TAB = 'CLOSE_TABLE_TAB';
 export const ADD_TABLE_TAB = 'ADD_TABLE_TAB';
 export const UPDATE_SELECTED_TABLE_TAB = 'UPDATE_SELECTED_TABLE_TAB';
 export const TOGGLE_SELECTED_RECORD = 'TOGGLE_SELECTED_RECORD';
+export const REMOVE_TARGET = 'REMOVE_TARGET';
 
 export function updateTableTabs(tables) {
   return {
@@ -39,5 +40,13 @@ export function toggleSelectedRecord(record) {
   return {
     type: TOGGLE_SELECTED_RECORD,
     payload: record
+  }
+}
+
+export function removeTarget(target) {
+  console.log('removing', target);
+  return {
+    type: REMOVE_TARGET,
+    payload: target
   }
 }

@@ -131,9 +131,30 @@ body {
   width: 50%;
 }
 .console-selected {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: box;
+  display: flex;
+  -webkit-box-lines: multiple;
+  -moz-box-lines: multiple;
+  -o-box-lines: multiple;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
   border: 1px solid #000;
   min-height: 35px;
   width: 50%;
+}
+.console-selected .target {
+  background-color: #90ee90;
+  margin: 3px;
+  padding: 2px;
+}
+.console-selected .target:hover {
+  background-color: #f00;
+  cursor: pointer;
 }
 .console {
   background-color: light-blue;
