@@ -156,6 +156,9 @@ body {
   background-color: #f00;
   cursor: pointer;
 }
+.focused-record-tab {
+  color: #008000;
+}
 .console {
   background-color: light-blue;
   border: 1px solid #000;
@@ -171,18 +174,17 @@ body {
   display: inline-flex;
 }
 .records .record-button {
-  display: -webkit-inline-box;
-  display: -moz-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-box;
-  display: inline-flex;
+  display: inline-block;
   margin: 3px;
   padding: 5px;
   background-color: #d3d3d3;
 }
 .records .record-button:hover {
   cursor: pointer;
+}
+.records .record-button select,
+.records .record-button input {
+  width: 100%;
 }
 .records .record-button-selected {
   background-color: #90ee90;

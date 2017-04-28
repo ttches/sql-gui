@@ -6,7 +6,7 @@ export default class Records extends Component {
     const { selectedTab, handleToggle, recordType,
     checkRecordSelectedOrFiltered } = this.props;
 
-    function generateRecordButtons(record, i) {
+    function generateRecordButtonsSelected(record, i) {
       //formats as TableName.RecordName
       let tableRecord = `${selectedTab}.${record}`
       return (
@@ -15,7 +15,30 @@ export default class Records extends Component {
             ? `record-button-${recordType}`
             : ''}`}
           data-record={tableRecord}
-          onClick={handleToggle}>{record}
+          onClick={handleToggle}>
+          {record}
+        </div>
+      );
+    }
+
+    function generateRecordButtonsFiltered(record, i) {
+      //formats as TableName.RecordName
+      let tableRecord = `${selectedTab}.${record}`
+      return (
+        <div key={i}
+          className={`record-button`}
+          data-record={tableRecord}>
+          {record}
+          <div style={{display: 'block'}}>
+            <select>
+              <option value='equal'>Equal to</option>
+              <option value='not'>Not equal to</option>
+              <option value='greater'>Greater than</option>
+              <option value='less'>Less than</option>
+              <option value='like'>Like</option>
+            </select>
+          </div>
+          <input type='text'></input>
         </div>
       );
     }
@@ -23,7 +46,11 @@ export default class Records extends Component {
     if (this.props.recordList) {
       return (
         <div className='records'>
-          <div>{this.props.recordList.map(generateRecordButtons)}</div>
+          <div>
+            {this.props.recordList.map((this.props.filtered)
+            ? generateRecordButtonsFiltered
+            : generateRecordButtonsSelected )}
+          </div>
         </div>
       );
     } else {

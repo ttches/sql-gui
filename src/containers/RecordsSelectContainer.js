@@ -9,6 +9,7 @@ class RecordsSelectContainer extends Component {
     super(props);
     this.handleSelectedRecordsToggle = this.handleSelectedRecordsToggle.bind(this);
     this.isRecordSelectedOrFiltered = this.isRecordSelectedOrFiltered.bind(this);
+    this.setStateSelectedOrFiltered = this.setStateSelectedOrFiltered.bind(this);
     this.state = {
       viewRecords: 'selected'
     };
@@ -26,6 +27,13 @@ class RecordsSelectContainer extends Component {
     }
   }
 
+  setStateSelectedOrFiltered(e) {
+    console.log(e)
+    this.setState({
+      viewRecords: e.target.dataset.tab
+    });
+  }
+
   render() {
     //If there's a selected table, sort its records
     const sortedRecordList = (this.props.selected.selectedTab.length > 0)
@@ -35,11 +43,26 @@ class RecordsSelectContainer extends Component {
     return (
       <div style={{width: '100%'}}>
         <div className="records-tabs">
-          <div className="selected-records-tab">Selected Records</div>
-          <div className="filtered-records-tab">Filtered Records</div>
+          <div className={`selected-records-tab
+              ${(this.state.viewRecords === 'selected')
+                ? 'focused-record-tab'
+                : 'unfocused-record-tab'}`}
+              onClick={this.setStateSelectedOrFiltered}
+              data-tab='selected'>
+            Selected Records
+          </div>
+          <div className={`filtered-records-tab
+            ${(this.state.viewRecords === 'filtered')
+              ? 'focused-record-tab'
+              : 'unfocused-record-tab'}`}
+            onClick={this.setStateSelectedOrFiltered}
+            data-tab='filtered'>
+            Filtered Records
+          </div>
         </div>
        <Records
           checkRecordSelectedOrFiltered={this.isRecordSelectedOrFiltered}
+          filtered={this.state.viewRecords === 'filtered'}
           handleToggle={(this.state.viewRecords === 'selected')
             ? this.handleSelectedRecordsToggle
             : ''}
