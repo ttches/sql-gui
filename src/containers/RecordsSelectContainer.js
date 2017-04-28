@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Records from '../components/Records';
-import { toggleSelectedRecord } from '../actions/index';
+import { toggleSelectedRecord,
+  deselectAllRecords, selectAllRecords} from '../actions/index';
 
 class RecordsSelectContainer extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class RecordsSelectContainer extends Component {
     this.handleSelectedRecordsToggle = this.handleSelectedRecordsToggle.bind(this);
     this.isRecordSelectedOrFiltered = this.isRecordSelectedOrFiltered.bind(this);
     this.setStateSelectedOrFiltered = this.setStateSelectedOrFiltered.bind(this);
+    this.toggleSelectAllRecords = this.toggleSelectAllRecords.bind(this);
     this.state = {
       viewRecords: 'selected'
     };
@@ -28,10 +30,20 @@ class RecordsSelectContainer extends Component {
   }
 
   setStateSelectedOrFiltered(e) {
-    console.log(e)
     this.setState({
       viewRecords: e.target.dataset.tab
     });
+  }
+
+  toggleSelectAllRecords() {
+    const table = this.props.selected.selectedTab;
+    const records = this.props.SQLData[table];
+    const tableRecords = records.map((record) => `${table}.${record}`);
+    //Is every record in this table selected?
+    (tableRecords.every((record) => {
+      return this.props.selected.targets.indexOf(record) > -1
+    })) ? this.props.deselectAllRecords(table)
+        : this.props.selectAllRecords(tableRecords)
   }
 
   render() {
@@ -44,11 +56,11 @@ class RecordsSelectContainer extends Component {
       <div style={{width: '100%'}}>
         <div className="records-tabs">
           <div className={`selected-records-tab
-              ${(this.state.viewRecords === 'selected')
-                ? 'focused-record-tab'
-                : 'unfocused-record-tab'}`}
-              onClick={this.setStateSelectedOrFiltered}
-              data-tab='selected'>
+            ${(this.state.viewRecords === 'selected')
+              ? 'focused-record-tab'
+              : 'unfocused-record-tab'}`}
+            onClick={this.setStateSelectedOrFiltered}
+            data-tab='selected'>
             Selected Records
           </div>
           <div className={`filtered-records-tab
@@ -60,6 +72,11 @@ class RecordsSelectContainer extends Component {
             Filtered Records
           </div>
         </div>
+        <button
+          onClick={this.toggleSelectAllRecords}
+          style={{display: (this.state.viewRecords === 'selected')
+          ? 'block' : 'none'}}>Select all
+        </button>
        <Records
           checkRecordSelectedOrFiltered={this.isRecordSelectedOrFiltered}
           filtered={this.state.viewRecords === 'filtered'}
@@ -84,4 +101,5 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, {toggleSelectedRecord})(RecordsSelectContainer);
+export default connect(mapStateToProps, { toggleSelectedRecord,
+  selectAllRecords, deselectAllRecords })(RecordsSelectContainer);

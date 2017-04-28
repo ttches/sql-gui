@@ -4,6 +4,8 @@ export const ADD_TABLE_TAB = 'ADD_TABLE_TAB';
 export const UPDATE_SELECTED_TABLE_TAB = 'UPDATE_SELECTED_TABLE_TAB';
 export const TOGGLE_SELECTED_RECORD = 'TOGGLE_SELECTED_RECORD';
 export const REMOVE_TARGET = 'REMOVE_TARGET';
+export const SELECT_ALL_RECORDS = 'SELECT_ALL_RECORDS';
+export const DESELECT_ALL_RECORDS = 'DESELECT_ALL_RECORDS';
 
 export function updateTableTabs(tables) {
   return {
@@ -48,5 +50,21 @@ export function removeTarget(target) {
   return {
     type: REMOVE_TARGET,
     payload: target
+  }
+}
+
+export function selectAllRecords(records) {
+  console.log('selecting', records);
+  return {
+    type: SELECT_ALL_RECORDS,
+    payload: records
+  }
+}
+
+export function deselectAllRecords(table) {
+  console.log('deselecting', table);
+  return {
+    type: DESELECT_ALL_RECORDS,
+    payload: table
   }
 }
