@@ -189,6 +189,18 @@ body {
 .records .record-button-selected {
   background-color: #90ee90;
 }
+.records .filter-not {
+  background-color: #ff6347;
+}
+.records .filter-greater {
+  background-color: #1e90ff;
+}
+.records .filter-less {
+  background-color: #ffd700;
+}
+.records .filter-like {
+  background-color: #ffa07a;
+}
 .records-tabs {
   display: -webkit-inline-box;
   display: -moz-inline-box;
@@ -210,6 +222,9 @@ body {
   align-items: center;
   height: 45px;
   width: 100%;
+}
+.records-tabs:hover {
+  cursor: pointer;
 }
 .table-tabs {
   max-height: 70px;

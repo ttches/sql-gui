@@ -8,6 +8,7 @@ import { toggleSelectedRecord,
 class RecordsSelectContainer extends Component {
   constructor(props) {
     super(props);
+    this.handleRecordFilterChange = this.handleRecordFilterChange.bind(this);
     this.handleSelectedRecordsToggle = this.handleSelectedRecordsToggle.bind(this);
     this.isRecordSelectedOrFiltered = this.isRecordSelectedOrFiltered.bind(this);
     this.setStateSelectedOrFiltered = this.setStateSelectedOrFiltered.bind(this);
@@ -15,6 +16,16 @@ class RecordsSelectContainer extends Component {
     this.state = {
       viewRecords: 'selected'
     };
+  }
+
+  handleRecordFilterChange(e) {
+    const tableRecord = e.target.dataset.filterselect;
+    const value = e.target.value;
+    document.querySelector(`[data-record="${tableRecord}"]`).classList
+      .remove('filter-not', 'filter-greater', 'filter-less',
+        'filter-like');
+    document.querySelector(`[data-record="${tableRecord}"]`).classList
+      .add(`filter-${value}`)
   }
 
   //Toggles a selected record as a target or not as a target in redux state
@@ -83,6 +94,7 @@ class RecordsSelectContainer extends Component {
           handleToggle={(this.state.viewRecords === 'selected')
             ? this.handleSelectedRecordsToggle
             : ''}
+          onRecordFilterChange={this.handleRecordFilterChange}
           recordType={this.state.viewRecords}
           recordList={sortedRecordList}
           selectedTab={this.props.selected.selectedTab}
