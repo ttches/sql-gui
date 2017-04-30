@@ -3,13 +3,15 @@ import { connect } from 'react-redux';
 
 import Records from '../components/Records';
 import { toggleSelectedRecord,
-  deselectAllRecords, selectAllRecords} from '../actions/index';
+  deselectAllRecords, selectAllRecords,
+  addFilterEqualLessGreater, addFilterNotLike } from '../actions/index';
 
 class RecordsSelectContainer extends Component {
   constructor(props) {
     super(props);
     this.handleRecordFilterChange = this.handleRecordFilterChange.bind(this);
     this.handleSelectedRecordsToggle = this.handleSelectedRecordsToggle.bind(this);
+    this.handleAddFilter = this.handleAddFilter.bind(this);
     this.isRecordSelectedOrFiltered = this.isRecordSelectedOrFiltered.bind(this);
     this.setStateSelectedOrFiltered = this.setStateSelectedOrFiltered.bind(this);
     this.toggleSelectAllRecords = this.toggleSelectAllRecords.bind(this);
@@ -19,7 +21,7 @@ class RecordsSelectContainer extends Component {
   }
 
   handleRecordFilterChange(e) {
-    const tableRecord = e.target.dataset.filterselect;
+    const tableRecord = e.target.dataset.filtertype;
     const value = e.target.value;
     document.querySelector(`[data-record="${tableRecord}"]`).classList
       .remove('filter-not', 'filter-greater', 'filter-less',
@@ -31,6 +33,22 @@ class RecordsSelectContainer extends Component {
   //Toggles a selected record as a target or not as a target in redux state
   handleSelectedRecordsToggle(e) {
     this.props.toggleSelectedRecord(e.target.dataset.record);
+  }
+
+  handleAddFilter(e) {
+    if (e.keyCode !== 13) return;
+    const tableRecord = e.target.dataset.filterinput;
+    const filterType = document.querySelector(`[data-filtertype="${tableRecord}"]`).value;
+    const filterValue = `'${e.target.value}'`;
+    if(filterType === 'equal' || filterType === 'less' || filterType === 'greater') {
+      this.props.addFilterEqualLessGreater([filterType, tableRecord, filterValue]);
+    } else if(filterType === 'not' || filterType === 'like') {
+      this.props.addFilterNotLike([filterType, tableRecord, filterValue]);
+    } else {
+      return;
+    }
+    e.target.value = '';
+
   }
 
   //If we're looking at selected table, will see if the record is in targets, otherwise will see if the reord is being filtered.
@@ -95,6 +113,7 @@ class RecordsSelectContainer extends Component {
             ? this.handleSelectedRecordsToggle
             : ''}
           onRecordFilterChange={this.handleRecordFilterChange}
+          onSubmitFilter={this.handleAddFilter}
           recordType={this.state.viewRecords}
           recordList={sortedRecordList}
           selectedTab={this.props.selected.selectedTab}
@@ -114,4 +133,5 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, { toggleSelectedRecord,
-  selectAllRecords, deselectAllRecords })(RecordsSelectContainer);
+  selectAllRecords, deselectAllRecords,
+  addFilterEqualLessGreater, addFilterNotLike })(RecordsSelectContainer);

@@ -4,7 +4,8 @@ export default class Records extends Component {
   render() {
 
     const { selectedTab, handleToggle, recordType,
-    checkRecordSelectedOrFiltered, onRecordFilterChange } = this.props;
+    checkRecordSelectedOrFiltered, onRecordFilterChange,
+    onSubmitFilter} = this.props;
 
     function generateRecordButtonsSelected(record, i) {
       //formats as TableName.RecordName
@@ -30,7 +31,7 @@ export default class Records extends Component {
           data-record={tableRecord}>
           {record}
           <div style={{display: 'block'}}>
-            <select data-filterSelect={tableRecord}
+            <select data-filtertype={tableRecord}
                 onChange={onRecordFilterChange}>
               <option value='equal'>Equal to</option>
               <option value='not'>Not equal to</option>
@@ -39,7 +40,8 @@ export default class Records extends Component {
               <option value='like'>Like</option>
             </select>
           </div>
-          <input type='text' data-filterInput={tableRecord}></input>
+          <input type='text' data-filterinput={tableRecord}
+            onKeyDown={onSubmitFilter}></input>
         </div>
       );
     }

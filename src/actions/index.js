@@ -6,6 +6,8 @@ export const TOGGLE_SELECTED_RECORD = 'TOGGLE_SELECTED_RECORD';
 export const REMOVE_TARGET = 'REMOVE_TARGET';
 export const SELECT_ALL_RECORDS = 'SELECT_ALL_RECORDS';
 export const DESELECT_ALL_RECORDS = 'DESELECT_ALL_RECORDS';
+export const ADD_EQUAL_LESS_GREATER = 'ADD_EQUAL_LESS_GREATER';
+export const ADD_FILTER_NOT_LIKE = 'ADD_FILTER_NOT_LIKE';
 
 export function updateTableTabs(tables) {
   return {
@@ -66,5 +68,21 @@ export function deselectAllRecords(table) {
   return {
     type: DESELECT_ALL_RECORDS,
     payload: table
+  }
+}
+
+export function addFilterEqualLessGreater(arr) {
+  console.log(`adding ${arr[1]} to ${arr[0]}`);
+  return {
+    type: ADD_EQUAL_LESS_GREATER,
+    payload: arr
+  }
+}
+
+export function addFilterNotLike(arr) {
+  console.log(`adding ${arr[1]} to ${arr[0]}`);
+  return {
+    type: ADD_FILTER_NOT_LIKE,
+    payload: arr
   }
 }
