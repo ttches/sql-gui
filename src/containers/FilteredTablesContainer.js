@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Filters from '../components/Filters';
+import FiltersNotLike from '../components/FiltersNotLike';
 import { removeFilterEqualLessGreater } from '../actions/index';
 
 class SelectedTablesContainer extends Component {
@@ -9,10 +10,10 @@ class SelectedTablesContainer extends Component {
     super(props);
     this.handleFilterEqualLessGreaterClick = this.handleFilterEqualLessGreaterClick.bind(this);
     this.generateFilteredEqualLessGreater = this.generateFilteredEqualLessGreater.bind(this);
+    this.generateFilteredNot = this.generateFilteredNot.bind(this);
   }
 
   handleFilterEqualLessGreaterClick(e) {
-    console.log(e.target.dataset.filtertable);
     let { filtertable, filtertype } = e.target.dataset;
     if (filtertype === 'less' || filtertype === 'greater') {
       filtertype = `${filtertype}Than`;
@@ -29,7 +30,7 @@ class SelectedTablesContainer extends Component {
       filterValuesType += 'Than';
     }
     return (
-      <Filters
+      <FiltersNotLike
         filterSymbol={filterSymbols[filterType]}
         filterType={filterType}
         filterValues={this.props.selected[filterValuesType]}
@@ -37,13 +38,26 @@ class SelectedTablesContainer extends Component {
         key={i} />
     )
   }
+
+  generateFilteredNot(tableRecord, i) {
+    return (
+      <Filters
+        filterSymbol='!='
+        filterType='not'
+        filterValues={tableRecord}
+        key={i} />
+    )
+  }
   //renders all selected filters
   render() {
     const equalLessGreaterArr = ['equal', 'less', 'greater'];
+    const notArr = Object.keys(this.props.selected.not);
+    console.log(notArr)
 
     return (
       <span className='console-filtered'>
         {equalLessGreaterArr.map(this.generateFilteredEqualLessGreater)}
+        {notArr.map(this.generateFilteredEqualLessGreater)}
       </span>
     )
   }
