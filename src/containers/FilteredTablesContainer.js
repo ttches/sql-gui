@@ -8,7 +8,7 @@ class SelectedTablesContainer extends Component {
   constructor(props) {
     super(props);
     this.handleFilterEqualLessGreaterClick = this.handleFilterEqualLessGreaterClick.bind(this);
-    this.generateFilteredEqual = this.generateFilteredEqual.bind(this);
+    this.generateFilteredEqualLessGreater = this.generateFilteredEqualLessGreater.bind(this);
   }
 
   handleFilterEqualLessGreaterClick(e) {
@@ -20,34 +20,30 @@ class SelectedTablesContainer extends Component {
     this.props.removeFilterEqualLessGreater([filtertype, filtertable])
   }
 
-  generateFilteredEqual(filterTable) {
+  //filterValuesType is a hack beause in the redux store, the filters are greaterThan and lessThan
+  //but just greater and less are used in other places.
+  generateFilteredEqualLessGreater(filterType, i) {
+    const filterSymbols = {equal: '=', less: '<', greater: '>'}
+    let filterValuesType = filterType;
+    if (filterValuesType === 'less' || filterType === 'greater') {
+      filterValuesType += 'Than';
+    }
     return (
       <Filters
-        filterTable={filterTable}
-        filterType='equal'
-        filterValues={this.props.selected.equal}
-        handleTargetClick={this.handleFilterEqualClick} />
+        filterSymbol={filterSymbols[filterType]}
+        filterType={filterType}
+        filterValues={this.props.selected[filterValuesType]}
+        handleTargetClick={this.handleFilterEqualLessGreaterClick}
+        key={i} />
     )
   }
   //renders all selected filters
   render() {
+    const equalLessGreaterArr = ['equal', 'less', 'greater'];
+
     return (
       <span className='console-filtered'>
-        <Filters
-          filterSymbol='='
-          filterType='equal'
-          filterValues={this.props.selected.equal}
-          handleTargetClick={this.handleFilterEqualLessGreaterClick} />
-        <Filters
-          filterSymbol='>'
-          filterType='greater'
-          filterValues={this.props.selected.greaterThan}
-          handleTargetClick={this.handleFilterEqualLessGreaterClick} />
-        <Filters
-          filterSymbol='<'
-          filterType='less'
-          filterValues={this.props.selected.lessThan}
-          handleTargetClick={this.handleFilterEqualLessGreaterClick} />
+        {equalLessGreaterArr.map(this.generateFilteredEqualLessGreater)}
       </span>
     )
   }
