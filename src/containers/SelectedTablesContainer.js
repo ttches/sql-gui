@@ -17,7 +17,8 @@ class SelectedTablesContainer extends Component {
   render() {
     return (
       <Tables targets={this.props.selected.targets}
-        handleTargetClick={this.handleTargetClick}/>
+        handleTargetClick={this.handleTargetClick}
+        filterType='target' />
     )
   }
 }

@@ -130,19 +130,38 @@ body {
   min-height: 35px;
   width: 50%;
 }
+.console-filtered .equal,
+.console-filtered .not,
+.console-filtered .less,
+.console-filtered .greater,
+.console-filtered .like {
+  margin: 3px;
+  padding: 2px;
+}
+.console-filtered .equal:hover,
+.console-filtered .not:hover,
+.console-filtered .less:hover,
+.console-filtered .greater:hover,
+.console-filtered .like:hover {
+  background-color: #f00;
+  cursor: pointer;
+}
+.console-filtered .equal {
+  background-color: #90ee90;
+}
+.console-filtered .not {
+  background-color: #ff6347;
+}
+.console-filtered .less {
+  background-color: #ffd700;
+}
+.console-filtered .greater {
+  background-color: #1e90ff;
+}
+.console-filtered .like {
+  background-color: #ffa07a;
+}
 .console-selected {
-  display: -webkit-box;
-  display: -moz-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: box;
-  display: flex;
-  -webkit-box-lines: multiple;
-  -moz-box-lines: multiple;
-  -o-box-lines: multiple;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
   border: 1px solid #000;
   min-height: 35px;
   width: 50%;

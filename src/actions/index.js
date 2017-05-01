@@ -7,6 +7,7 @@ export const REMOVE_TARGET = 'REMOVE_TARGET';
 export const SELECT_ALL_RECORDS = 'SELECT_ALL_RECORDS';
 export const DESELECT_ALL_RECORDS = 'DESELECT_ALL_RECORDS';
 export const ADD_EQUAL_LESS_GREATER = 'ADD_EQUAL_LESS_GREATER';
+export const REMOVE_EQUAL_LESS_GREATER = 'REMOVE_EQUAL_LESS_GREATER';
 export const ADD_FILTER_NOT_LIKE = 'ADD_FILTER_NOT_LIKE';
 
 export function updateTableTabs(tables) {
@@ -75,6 +76,14 @@ export function addFilterEqualLessGreater(arr) {
   console.log(`adding ${arr[1]} to ${arr[0]}`);
   return {
     type: ADD_EQUAL_LESS_GREATER,
+    payload: arr
+  }
+}
+
+export function removeFilterEqualLessGreater(arr) {
+  console.log(`removing ${arr[1]} from ${arr[0]}`);
+  return {
+    type: REMOVE_EQUAL_LESS_GREATER,
     payload: arr
   }
 }

@@ -1,4 +1,23 @@
+@import 'nib';
+@import '../vars.styl';
+
 .console-filtered
   border black
   min-height 35px
   width: 50%
+  .equal, .not, .less, .greater, .like
+    margin 3px
+    padding 2px
+    &:hover
+      background-color red
+      cursor pointer
+  .equal
+    background-color lightgreen
+  .not
+    background-color $filter-not
+  .less
+    background-color $filter-less
+  .greater
+    background-color $filter-greater
+  .like
+    background-color $filter-like

@@ -3,21 +3,21 @@ import React, { Component } from 'react';
 export default class Tables extends Component {
   render() {
 
-    const { handleTargetClick } = this.props;
+    const { handleTargetClick, filterType } = this.props;
 
     function mapTargets(target, i) {
       return (
-        <span className='target' key={i} alt='Remove'
+        <div className={filterType} style={{display: 'inline-block'}} key={i} alt='Remove'
           onClick={handleTargetClick}>
           {target}
-        </span>
+        </div>
       )
     }
 
     return (
-      <div className='console-selected'>
+      <span className='console-selected'>
         {this.props.targets.map(mapTargets)}
-      </div>
+      </span>
     );
   }
 }
