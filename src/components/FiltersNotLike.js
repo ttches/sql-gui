@@ -15,13 +15,12 @@ export default class FiltersNotLike extends Component {
           onClick={handleTargetClick}
           data-filtertable={filterTableRecord}
           data-filtertype={filterType}
+          data-filtervalue={filterValue}
           >
           {`${filterTableRecord} ${filterSymbol} ${filterValue}`}
         </div>
       )
     }
-    console.log('not, like', this.props.filterValues);
-
 
     return (
       <span>

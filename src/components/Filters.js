@@ -20,7 +20,6 @@ export default class Filters extends Component {
         </div>
       )
     }
-    console.log(this.props.filterValues);
     return (
       <span>
         {Object.keys(this.props.filterValues).map(mapFilters)}

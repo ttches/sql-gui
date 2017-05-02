@@ -102,7 +102,8 @@ class RecordsSelectContainer extends Component {
         </div>
         <button
           onClick={this.toggleSelectAllRecords}
-          style={{display: (this.state.viewRecords === 'selected')
+          style={{display: (this.state.viewRecords === 'selected'
+          && this.props.selected.selectedTab.length > 0)
           ? 'block' : 'none'}}>Select all
         </button>
        <Records

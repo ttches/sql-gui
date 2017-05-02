@@ -3,7 +3,7 @@ import { UPDATE_TABLE_TABS, CLOSE_TABLE_TAB,
   TOGGLE_SELECTED_RECORD, REMOVE_TARGET,
   SELECT_ALL_RECORDS, DESELECT_ALL_RECORDS,
   ADD_EQUAL_LESS_GREATER, ADD_FILTER_NOT_LIKE,
-  REMOVE_EQUAL_LESS_GREATER} from '../actions/index';
+  REMOVE_EQUAL_LESS_GREATER, REMOVE_FILTER_NOT_LIKE} from '../actions/index';
 
 const INITIAL_STATE = {
   tables: ["ACCTCAT", "ACCTNUMS", "APPDET", "APPOINT", "APPOINTS", "ASSEMBLY", "BILLADDR", "CALLHIST", "CARD", "CATEGORY", "CENTRAL", "CODES", "CONTACTS", "CONTCAT", "CONTLOC", "CONTMAST", "CONTRACT", "CONTRCTS", "CONTYPE", "CONVERSE", "CORRLOG", "COSTCODE", "CREDACT", "CREDHEAD", "CUSTATUS", "CUSTOMER", "DBA", "DEALER", "DEALINV", "DEFAULTS", "DETMEMO", "DISPATCH", "EDEALINV", "EDEFAULT", "EHTM", "EHTMTIC", "EMAILINV", "EQUIPMNT", "ETECH", "ETICKET", "FORMS", "GLTABLE", "HELPDESK", "IMAGES", "INCOME", "INVDET", "INVMEMO", "INVOICE", "INVREC", "LABELS", "LETTER", "LOCATION", "LOCINV", "LOGTYPE", "MASSYS", "MASTSYS", "MERGELST", "MULTICOM", "PARTCAT", "PARTDESC", "PARTS", "PARTSBUY", "PARTSLVL", "PARTYPE", "PCONTRCT", "PHONELBL", "PHRASE", "PLEVELS", "PODETAIL", "POHEAD", "POMEMO", "POPAPPT", "POPBAL", "POPCRED", "POPREM", "POSITIO", "POTITLE", "QUICKCAT", "QUICKSYS", "QUICKTMP", "RAPIDSYS", "RATES", "RECDET", "RECEIPTS", "RECHARGE", "RELATION", "REMARKS", "REMINDER", "REPAIR", "ROLODEX", "SCHEDULE", "SERVICE", "SPHRASE", "STOCKLOG", "SUBCAT", "SUPMERGE", "SUPPORT", "SXPHRASE", "SYSTEM", "TASKS", "TASKSTAT", "TAXTABLE", "TBEVENTS", "TBEXCLUD", "TBGROUP", "TBLIST", "TBLOG", "TBSYSTEM", "TBTMPL", "TBTMPLHD", "TECHS", "TEMPAPD", "TICKET", "TIMECARD", "TIMECAT", "TODO", "TRANSLOG", "TROUBLE", "TSAPTMNT", "TSCOUNT", "TSMDATA", "TSRECUR", "USER17", "USER18", "USER19", "USER20", "USERLOG", "VENDNAME", "VENDOR", "ZONEDEF1", "ZONEDEF2", "ZONEMAST", "ZONES", "ZONETYPE"],
@@ -134,6 +134,17 @@ export default function(state = INITIAL_STATE, action) {
       //Else, create an array with the filterValue
         workingState[filterType][tableRecord] = [filterValue];
       }
+      return workingState;
+
+    case REMOVE_FILTER_NOT_LIKE:
+      workingState = {...state}
+      filterType = action.payload[0];
+      tableRecord = action.payload[1];
+      filterValue = action.payload[2];
+      workingState[filterType][tableRecord] =
+      workingState[filterType][tableRecord].filter((value) => {
+        return value !== filterValue
+      });
       return workingState;
 
     default:
