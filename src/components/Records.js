@@ -5,7 +5,7 @@ export default class Records extends Component {
 
     const { selectedTab, handleToggle, recordType,
     checkRecordSelectedOrFiltered, onRecordFilterChange,
-    onSubmitFilter} = this.props;
+    onSubmitFilter } = this.props;
 
     function generateRecordButtonsSelected(record, i) {
       //formats as TableName.RecordName
@@ -28,7 +28,7 @@ export default class Records extends Component {
       return (
         <div key={i}
           className={`record-button`}
-          data-record={tableRecord}>
+          data-record={tableRecord} >
           {record}
           <div style={{display: 'block'}}>
             <select data-filtertype={tableRecord}

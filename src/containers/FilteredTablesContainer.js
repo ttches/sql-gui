@@ -11,6 +11,7 @@ class SelectedTablesContainer extends Component {
     this.handleFilterEqualLessGreaterClick = this.handleFilterEqualLessGreaterClick.bind(this);
     this.generateFilteredEqualLessGreater = this.generateFilteredEqualLessGreater.bind(this);
     this.generateFilteredNot = this.generateFilteredNot.bind(this);
+    this.generateFilteredLike = this.generateFilteredLike.bind(this);
   }
 
   handleFilterEqualLessGreaterClick(e) {
@@ -30,7 +31,7 @@ class SelectedTablesContainer extends Component {
       filterValuesType += 'Than';
     }
     return (
-      <FiltersNotLike
+      <Filters
         filterSymbol={filterSymbols[filterType]}
         filterType={filterType}
         filterValues={this.props.selected[filterValuesType]}
@@ -41,23 +42,38 @@ class SelectedTablesContainer extends Component {
 
   generateFilteredNot(tableRecord, i) {
     return (
-      <Filters
-        filterSymbol='!='
+      <FiltersNotLike
+        filterSymbol='NOT ='
+        filterTableRecord={tableRecord}
         filterType='not'
-        filterValues={tableRecord}
+        filterValues={this.props.selected.not[tableRecord]}
         key={i} />
     )
   }
+
+  generateFilteredLike(tableRecord, i) {
+    return (
+      <FiltersNotLike
+        filterSymbol='LIKE'
+        filterTableRecord={tableRecord}
+        filterType='like'
+        filterValues={this.props.selected.like[tableRecord]}
+        key={i} />
+    )
+  }
+
   //renders all selected filters
   render() {
     const equalLessGreaterArr = ['equal', 'less', 'greater'];
     const notArr = Object.keys(this.props.selected.not);
+    const likeArr = Object.keys(this.props.selected.like);
     console.log(notArr)
 
     return (
       <span className='console-filtered'>
         {equalLessGreaterArr.map(this.generateFilteredEqualLessGreater)}
-        {notArr.map(this.generateFilteredEqualLessGreater)}
+        {notArr.map(this.generateFilteredNot)}
+        {likeArr.map(this.generateFilteredLike)}
       </span>
     )
   }

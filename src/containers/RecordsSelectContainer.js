@@ -48,7 +48,6 @@ class RecordsSelectContainer extends Component {
       return;
     }
     e.target.value = '';
-
   }
 
   //If we're looking at selected table, will see if the record is in targets, otherwise will see if the reord is being filtered.
@@ -114,6 +113,7 @@ class RecordsSelectContainer extends Component {
             : ''}
           onRecordFilterChange={this.handleRecordFilterChange}
           onSubmitFilter={this.handleAddFilter}
+          onToggleFilter={this.handleToggleFilter}
           recordType={this.state.viewRecords}
           recordList={sortedRecordList}
           selectedTab={this.props.selected.selectedTab}

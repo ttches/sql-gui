@@ -3,20 +3,20 @@ import React, { Component } from 'react';
 export default class FiltersNotLike extends Component {
   render() {
 
-    const { handleTargetClick, filterType, filterValues,
-      filterSymbol } = this.props;
+    const { handleTargetClick, filterType,
+      filterSymbol, filterTableRecord } = this.props;
 
-    function mapFilters(filterTable, i) {
+    function mapFilters(filterValue, i) {
       return (
         <div style={{display: 'inline-block'}}
           className={filterType}
           key={i}
           alt='Remove'
           onClick={handleTargetClick}
-          data-filtertable={filterTable}
+          data-filtertable={filterTableRecord}
           data-filtertype={filterType}
           >
-          {`${filterTable} ${filterSymbol} ${filterValues[filterTable]}`}
+          {`${filterTableRecord} ${filterSymbol} ${filterValue}`}
         </div>
       )
     }
@@ -25,7 +25,7 @@ export default class FiltersNotLike extends Component {
 
     return (
       <span>
-
+        {this.props.filterValues.map(mapFilters)}
       </span>
     );
   }
