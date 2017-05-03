@@ -183,6 +183,7 @@ body {
   border: 1px solid #000;
   height: 70px;
   width: 100%;
+  overflow-y: scroll;
 }
 .keyword {
   color: #008000;
