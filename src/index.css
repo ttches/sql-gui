@@ -184,6 +184,10 @@ body {
   height: 70px;
   width: 100%;
 }
+.keyword {
+  color: #008000;
+  font-weight: bold;
+}
 .records {
   display: -webkit-inline-box;
   display: -moz-inline-box;
