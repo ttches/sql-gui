@@ -10,6 +10,7 @@ export const ADD_EQUAL_LESS_GREATER = 'ADD_EQUAL_LESS_GREATER';
 export const REMOVE_EQUAL_LESS_GREATER = 'REMOVE_EQUAL_LESS_GREATER';
 export const ADD_FILTER_NOT_LIKE = 'ADD_FILTER_NOT_LIKE';
 export const REMOVE_FILTER_NOT_LIKE = 'REMOVE_FILTER_NOT_LIKE';
+export const  ADD_FILTER_LINK = 'ADD_FILTER_LINK';
 
 export function updateTableTabs(tables) {
   return {
@@ -101,6 +102,14 @@ export function removeFilterNotLike(arr) {
   console.log(`removing ${arr}`);
   return {
     type: REMOVE_FILTER_NOT_LIKE,
+    payload: arr
+  }
+}
+
+export function addFilterLink(arr) {
+  console.log(arr)
+  return {
+    type: ADD_FILTER_LINK,
     payload: arr
   }
 }

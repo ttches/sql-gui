@@ -38,6 +38,7 @@ export default class Records extends Component {
               <option value='greater'>Greater than</option>
               <option value='less'>Less than</option>
               <option value='like'>Like</option>
+              <option value='link'>Link to record</option>
             </select>
           </div>
           <input type='text' data-filterinput={tableRecord}

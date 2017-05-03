@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import Records from '../components/Records';
 import { toggleSelectedRecord,
   deselectAllRecords, selectAllRecords,
-  addFilterEqualLessGreater, addFilterNotLike } from '../actions/index';
+  addFilterEqualLessGreater, addFilterNotLike,
+  addFilterLink } from '../actions/index';
 
 class RecordsSelectContainer extends Component {
   constructor(props) {
@@ -44,6 +45,8 @@ class RecordsSelectContainer extends Component {
       this.props.addFilterEqualLessGreater([filterType, tableRecord, filterValue]);
     } else if(filterType === 'not' || filterType === 'like') {
       this.props.addFilterNotLike([filterType, tableRecord, filterValue]);
+    } else if(filterType === 'link') {
+      this.props.addFilterLink([tableRecord, filterValue]);
     } else {
       return;
     }
@@ -135,4 +138,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, { toggleSelectedRecord,
   selectAllRecords, deselectAllRecords,
-  addFilterEqualLessGreater, addFilterNotLike })(RecordsSelectContainer);
+  addFilterEqualLessGreater, addFilterNotLike,
+  addFilterLink })(RecordsSelectContainer);
