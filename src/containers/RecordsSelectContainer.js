@@ -46,7 +46,11 @@ class RecordsSelectContainer extends Component {
     } else if(filterType === 'not' || filterType === 'like') {
       this.props.addFilterNotLike([filterType, tableRecord, filterValue]);
     } else if(filterType === 'link') {
-      this.props.addFilterLink([tableRecord, filterValue]);
+      if (filterValue.indexOf('.') === -1) {
+        alert('Please user format TABLE.RECORD')
+      } else {
+        this.props.addFilterLink([tableRecord, filterValue.toUpperCase()]);
+      }
     } else {
       return;
     }

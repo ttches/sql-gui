@@ -134,7 +134,8 @@ body {
 .console-filtered .not,
 .console-filtered .less,
 .console-filtered .greater,
-.console-filtered .like {
+.console-filtered .like,
+.console-filtered .link {
   margin: 3px;
   padding: 2px;
 }
@@ -142,7 +143,8 @@ body {
 .console-filtered .not:hover,
 .console-filtered .less:hover,
 .console-filtered .greater:hover,
-.console-filtered .like:hover {
+.console-filtered .like:hover,
+.console-filtered .link:hover {
   background-color: #f00;
   cursor: pointer;
 }
@@ -160,6 +162,9 @@ body {
 }
 .console-filtered .like {
   background-color: #ffa07a;
+}
+.console-filtered .link {
+  background-color: mediumOrchid;
 }
 .console-selected {
   border: 1px solid #000;

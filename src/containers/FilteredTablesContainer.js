@@ -3,17 +3,20 @@ import { connect } from 'react-redux';
 
 import Filters from '../components/Filters';
 import FiltersNotLike from '../components/FiltersNotLike';
+import FiltersLink from '../components/FiltersLink';
 import { removeFilterEqualLessGreater,
-  removeFilterNotLike } from '../actions/index';
+  removeFilterNotLike, removeFilterLink } from '../actions/index';
 
 class SelectedTablesContainer extends Component {
   constructor(props) {
     super(props);
     this.handleFilterEqualLessGreaterClick = this.handleFilterEqualLessGreaterClick.bind(this);
     this.handleFilterNotLikeClick = this.handleFilterNotLikeClick.bind(this);
+    this.handleFilterLinkClick = this.handleFilterLinkClick.bind(this);
     this.generateFilteredEqualLessGreater = this.generateFilteredEqualLessGreater.bind(this);
     this.generateFilteredNot = this.generateFilteredNot.bind(this);
     this.generateFilteredLike = this.generateFilteredLike.bind(this);
+    this.generateFilteredLink = this.generateFilteredLink.bind(this);
   }
 
   handleFilterEqualLessGreaterClick(e) {
@@ -27,6 +30,10 @@ class SelectedTablesContainer extends Component {
   handleFilterNotLikeClick(e) {
     let { filtertable, filtertype, filtervalue } = e.target.dataset;
     this.props.removeFilterNotLike([filtertype, filtertable, filtervalue]);
+  }
+
+  handleFilterLinkClick() {
+    this.props.removeFilterLink();
   }
 
   //filterValuesType is a hack beause in the redux store, the filters are greaterThan and lessThan
@@ -71,6 +78,19 @@ class SelectedTablesContainer extends Component {
     )
   }
 
+  generateFilteredLink(linkString, i) {
+    return (
+      <FiltersLink
+        filterSymbol='='
+        filterTableRecord='linkedRecords'
+        filterType='link'
+        linkString={linkString}
+        handleTargetClick={this.handleFilterLinkClick}
+        key={i}
+       />
+    )
+  }
+
   //renders all selected filters
   render() {
     const equalLessGreaterArr = ['equal', 'less', 'greater'];
@@ -82,6 +102,7 @@ class SelectedTablesContainer extends Component {
         {equalLessGreaterArr.map(this.generateFilteredEqualLessGreater)}
         {notArr.map(this.generateFilteredNot)}
         {likeArr.map(this.generateFilteredLike)}
+        {this.props.selected.link.map(this.generateFilteredLink)}
       </span>
     )
   }
@@ -95,4 +116,4 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps,
   { removeFilterEqualLessGreater,
-    removeFilterNotLike })(SelectedTablesContainer);
+    removeFilterNotLike, removeFilterLink })(SelectedTablesContainer);

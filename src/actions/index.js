@@ -10,7 +10,8 @@ export const ADD_EQUAL_LESS_GREATER = 'ADD_EQUAL_LESS_GREATER';
 export const REMOVE_EQUAL_LESS_GREATER = 'REMOVE_EQUAL_LESS_GREATER';
 export const ADD_FILTER_NOT_LIKE = 'ADD_FILTER_NOT_LIKE';
 export const REMOVE_FILTER_NOT_LIKE = 'REMOVE_FILTER_NOT_LIKE';
-export const  ADD_FILTER_LINK = 'ADD_FILTER_LINK';
+export const ADD_FILTER_LINK = 'ADD_FILTER_LINK';
+export const REMOVE_FILTER_LINK = 'REMOVE_FILTER_LINK';
 
 export function updateTableTabs(tables) {
   return {
@@ -111,5 +112,12 @@ export function addFilterLink(arr) {
   return {
     type: ADD_FILTER_LINK,
     payload: arr
+  }
+}
+
+export function removeFilterLink() {
+  console.log('Removing linked records');
+  return {
+    type: REMOVE_FILTER_LINK
   }
 }
