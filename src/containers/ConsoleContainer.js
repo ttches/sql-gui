@@ -12,35 +12,35 @@ class ConsoleContainer extends Component {
     this.renderNot = this.renderNot.bind(this);
     this.renderLike = this.renderLike.bind(this);
   }
-
+  //This is all done in strings because the styling was difficult with multiple arrays
   renderSQLScript() {
     if (this.props.selected.targets < 1) {
-      return <span>Add a table and selected a record to create SQL code</span>
+      return `<span>Add a table and selected a record to create SQL code</span>`
     }
     return (
-      <div>
-        <div>{this.renderTargets()}</div>
-        <div>{this.renderTables()}</div>
-        <div>{this.renderFilters()}</div>
-      </div>
+      `<div>
+        <div>${this.renderTargets()}</div>
+        <div>${this.renderTables()}</div>
+        <div>${this.renderFilters() || ''}</div>
+      </div>`
     )
   }
 
   renderTargets() {
     return (
-      <span>
-        <span className='keyword'>SELECT </span>
-        {this.props.selected.targets.join(', ')}
-      </span>
+      `<span>
+        <span class='keyword'>SELECT </span>
+        ${this.props.selected.targets.join(', ')}
+      </span>`
     )
   }
 
   renderTables() {
     return (
-      <span>
-        <span className='keyword'>FROM </span>
-        {this.consolidateSelectedTables()}
-      </span>
+      `<span>
+        <span class='keyword'>FROM </span>
+        ${this.consolidateSelectedTables()}
+      </span>`
     )
   }
 
@@ -82,29 +82,25 @@ class ConsoleContainer extends Component {
       filterOutput = [].concat(...filterOutput);
       console.log(filterOutput);
       return (
-        <span>
-          <span className='keyword'>WHERE </span>
-          {filterOutput.map(this.renderAnd)}
-        </span>
+        `<span>
+          <span class='keyword'>WHERE </span>
+          ${filterOutput.join(`<span class='keyword'> AND </span>`)}
+        </span>`
       )
     }
   }
 
-  renderAnd(filterValue, i) {
-    if (i === 0) {
-      return (
-        <span key={i}>
-          {filterValue}
-        </span>
-      )
-    }
-    return (
-      <span key={i}>
-        <span className='keyword'> AND </span>
-        {filterValue}
-      </span>
-    )
-  }
+  // I had this before I switched to strings. This I could do in JSX
+  // renderAnd(filterValue, i) {
+  //   if (i === 0) {
+  //     return (
+  //       <span key={i}>${filterValue}</span>
+  //     )
+  //   }
+  //   return (
+  //     <span key={i}><span className='keyword'> AND </span>${filterValue}</span>
+  //   )
+  // }
 
   renderEqualLessGreater(filter) {
     const symbols = {equal: '=', lessThan: '<', greaterThan: '>'};
@@ -116,7 +112,7 @@ class ConsoleContainer extends Component {
   renderNot(filterTableRecord) {
     let notArr = this.props.selected.not[filterTableRecord]
     notArr = notArr.map((filter) => {
-      return `NOT ${filterTableRecord} = ${filter}`
+      return `<span class='keyword'>NOT </span>${filterTableRecord} = ${filter}`
     });
     return notArr;
   }
@@ -124,7 +120,8 @@ class ConsoleContainer extends Component {
   renderLike(filterTableRecord) {
     let likeArr = this.props.selected.like[filterTableRecord]
     likeArr = likeArr.map((filter) => {
-      return `${filterTableRecord} LIKE ${filter}`.replace(/'/g, "%")
+      return `${filterTableRecord} <span class='keyword'>LIKE </span>
+       ${filter.replace(/'/g, "%")}`
     });
     return likeArr;
   }
