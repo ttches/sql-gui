@@ -230,6 +230,9 @@ body {
 .records .filter-like {
   background-color: #ffa07a;
 }
+.records .filter-link {
+  background-color: mediumOrchid;
+}
 .records-tabs {
   display: -webkit-inline-box;
   display: -moz-inline-box;

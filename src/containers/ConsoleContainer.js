@@ -8,6 +8,9 @@ class ConsoleContainer extends Component {
   constructor(props) {
     super(props);
     this.renderSQLScript = this.renderSQLScript.bind(this);
+    this.renderEqualLessGreater = this.renderEqualLessGreater.bind(this);
+    this.renderNot = this.renderNot.bind(this);
+    this.renderLike = this.renderLike.bind(this);
   }
 
   renderSQLScript() {
@@ -60,12 +63,22 @@ class ConsoleContainer extends Component {
       }, 0);
     //If there are no filters, do not try to add them.
     if (filterNumber) {
-      const equalLessGreaterArr = ['equal', 'lessThan', 'greaterThan'];
-      let filterOutput =
-        equalLessGreaterArr.map(this.renderEqualLessGreater.bind(this))
-    //gets rid of blank array items
+      //Render an array of equal, lessThan, greaterThan filters
+      let equalLessGreaterArr = ['equal', 'lessThan', 'greaterThan'];
+      equalLessGreaterArr =
+        equalLessGreaterArr.map(this.renderEqualLessGreater)
+
+      let notArr = Object.keys(this.props.selected.not);
+      notArr = notArr.map(this.renderNot)
+
+      let likeArr = Object.keys(this.props.selected.like);
+      likeArr = likeArr.map(this.renderLike);
+
+    //flatten array of filters and removes blanks
+      let filterOutput = [...equalLessGreaterArr, ...notArr, ...likeArr,
+      ...this.props.selected.link]
         .filter((filter) => filter !== '');
-    //flatten array of filters
+
       filterOutput = [].concat(...filterOutput);
       console.log(filterOutput);
       return (
@@ -94,15 +107,31 @@ class ConsoleContainer extends Component {
   }
 
   renderEqualLessGreater(filter) {
-    console.log('filter =', filter)
     const symbols = {equal: '=', lessThan: '<', greaterThan: '>'};
-    console.log(this.props.selected[filter])
     return Object.keys(this.props.selected[filter]).map((tableRecord) => {
       return `${tableRecord} ${symbols[filter]} ${this.props.selected[filter][tableRecord]}`
     })
   }
 
+  renderNot(filterTableRecord) {
+    let notArr = this.props.selected.not[filterTableRecord]
+    notArr = notArr.map((filter) => {
+      return `NOT ${filterTableRecord} = ${filter}`
+    });
+    return notArr;
+  }
+
+  renderLike(filterTableRecord) {
+    let likeArr = this.props.selected.like[filterTableRecord]
+    likeArr = likeArr.map((filter) => {
+      return `${filterTableRecord} LIKE ${filter}`.replace(/'/g, "%")
+    });
+    return likeArr;
+  }
+
+
   render() {
+
     return (
       <Console
         script={this.renderSQLScript()} />
