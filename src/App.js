@@ -9,9 +9,11 @@ import Console from './containers/ConsoleContainer';
 class App extends Component {
   render() {
     return (
-      <div style={{display: 'flex'}}>
-        <TableTabsContainer />
-        <div style={{display: 'flex', flexFlow: 'row wrap', width: '80%'}}>
+      <div className='container'>
+        <div className='left-panel'>
+          <TableTabsContainer />
+        </div>
+        <div className='main-container'>
           <Console />
           <SelectedTablesContainer />
           <FilteredTablesContainer />

@@ -34,10 +34,10 @@ export default class TableTabs extends Component {
         {this.props.tabs.map(renderTableTabs)}
         <button
           className='add-table-tab'
-          style={{display: `${(this.props.tabs.length > 10) ? 'none' : 'block'}`}}
+          style={{display: `${(this.props.tabs.length > 1) ? 'none' : 'block'}`}}
           onClick={this.props.onAddTableTab}>
             Add Table
-          </button>
+        </button>
       </div>
     );
   }
