@@ -8,12 +8,17 @@ export default class Console extends Component {
     }
     console.log(this.props.script);
     return (
-      <div className='console'>
-        <div dangerouslySetInnerHTML={{
-          __html: this.props.script
-        }} />
-
-        <button onClick={handleClick}>Click</button>
+      <div style={{width: '100%', display: 'inline-flex'}}>
+        <div className='console'>
+          <div dangerouslySetInnerHTML={{
+            __html: this.props.script
+          }} />
+        </div>
+        <div className='console-buttons'>
+          <button onClick={handleClick}>Copy</button>
+          <button onClick={handleClick}>Favorite</button>
+          <button onClick={handleClick}>Remember</button>
+        </div>
       </div>
 
     );
