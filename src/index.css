@@ -122,9 +122,6 @@ video {
   box-sizing: border-box;
   font: main-font;
 }
-body {
-  margin-top: 35px;
-}
 html,
 body,
 #root {
@@ -197,7 +194,7 @@ body,
   background-color: light-blue;
   border: 1px solid #000;
   height: 99px;
-  overflow-y: scroll;
+  overflow-y: auto;
   width: 90%;
 }
 .keyword {
@@ -250,6 +247,7 @@ body,
   -webkit-flex-flow: row wrap;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
+  margin-top: 35px;
   width: 90%;
 }
 .left-panel {
@@ -269,6 +267,8 @@ body,
   height: 100%;
   max-width: 150px;
   min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
   width: 15%;
   -webkit-box-flex: 1;
   -moz-box-flex: 1;
@@ -279,22 +279,27 @@ body,
   flex: 1 1 auto;
 }
 .left-panel .table-tab > div,
-.left-panel .table-tab select {
+.left-panel .favorite-tab > div,
+.left-panel .table-tab select,
+.left-panel .favorite-tab select {
   display: -webkit-inline-box;
   display: -moz-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
   display: inline-box;
   display: inline-flex;
-  width: 100px;
+  width: 125px;
 }
-.records {
-  display: -webkit-inline-box;
-  display: -moz-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-box;
-  display: inline-flex;
+.left-panel .table-tab > button,
+.left-panel .favorite-tab > button {
+  background-color: #00f;
+}
+.records-container {
+  display: inline-block;
+}
+.records-container button {
+  margin: 3px;
+  padding: 5px;
 }
 .records .record-button {
   display: inline-block;

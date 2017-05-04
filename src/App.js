@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import FavoritesTabsContainer from './containers/FavoritesTabContainer';
 import TableTabsContainer from './containers/TableTabsContainer';
 import RecordsSelectContainer from './containers/RecordsSelectContainer';
 import SelectedTablesContainer from './containers/SelectedTablesContainer';
@@ -12,6 +13,7 @@ class App extends Component {
       <div className='container'>
         <div className='left-panel'>
           <TableTabsContainer />
+          <FavoritesTabsContainer />
         </div>
         <div className='main-container'>
           <Console />

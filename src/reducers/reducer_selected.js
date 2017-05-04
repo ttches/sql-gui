@@ -52,6 +52,9 @@ export default function(state = INITIAL_STATE, action) {
         delete workingState.equal[action.payload];
         delete workingState.not[action.payload];
         delete workingState.like[action.payload];
+        if (workingState.selectedTab === action.payload) {
+          workingState.selectedTab = '';
+        }
         return workingState;
       }
 

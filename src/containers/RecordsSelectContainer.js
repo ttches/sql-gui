@@ -107,26 +107,28 @@ class RecordsSelectContainer extends Component {
             Filtered Records
           </div>
         </div>
-        <button
-          onClick={this.toggleSelectAllRecords}
-          style={{display: (this.state.viewRecords === 'selected'
-          && this.props.selected.selectedTab.length > 0)
-          ? 'block' : 'none'}}>Select all
-        </button>
-       <Records
-          checkRecordSelectedOrFiltered={this.isRecordSelectedOrFiltered}
-          filtered={this.state.viewRecords === 'filtered'}
-          handleToggle={(this.state.viewRecords === 'selected')
+        <div className='records-container'>
+          <span><button
+            onClick={this.toggleSelectAllRecords}
+            style={{display: (this.state.viewRecords === 'selected'
+            && this.props.selected.selectedTab.length > 0)
+            ? 'inline-block' : 'none'}}>Select all
+          </button></span>
+          <Records
+            checkRecordSelectedOrFiltered={this.isRecordSelectedOrFiltered}
+            filtered={this.state.viewRecords === 'filtered'}
+            handleToggle={(this.state.viewRecords === 'selected')
             ? this.handleSelectedRecordsToggle
             : ''}
-          onRecordFilterChange={this.handleRecordFilterChange}
-          onSubmitFilter={this.handleAddFilter}
-          onToggleFilter={this.handleToggleFilter}
-          recordType={this.state.viewRecords}
-          recordList={sortedRecordList}
-          selectedTab={this.props.selected.selectedTab}
-          targets={this.props.selected.targets}
-        />
+            onRecordFilterChange={this.handleRecordFilterChange}
+            onSubmitFilter={this.handleAddFilter}
+            onToggleFilter={this.handleToggleFilter}
+            recordType={this.state.viewRecords}
+            recordList={sortedRecordList}
+            selectedTab={this.props.selected.selectedTab}
+            targets={this.props.selected.targets}
+          />
+        </div>
       </div>
     );
   }

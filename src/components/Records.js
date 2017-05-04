@@ -49,13 +49,13 @@ export default class Records extends Component {
 
     if (this.props.recordList) {
       return (
-        <div className='records'>
-          <div>
+        <span className='records'>
+          <span>
             {this.props.recordList.map((this.props.filtered)
             ? generateRecordButtonsFiltered
             : generateRecordButtonsSelected )}
-          </div>
-        </div>
+          </span>
+        </span>
       );
     } else {
       return (
