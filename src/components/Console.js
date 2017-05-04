@@ -15,8 +15,8 @@ export default class Console extends Component {
           }} />
         </div>
         <div className='console-buttons'>
-          <button onClick={handleClick}>Copy</button>
-          <button onClick={handleClick}>Favorite</button>
+          <button onClick={this.props.onCopyClick}>Copy</button>
+          <button onClick={this.props.onFavoriteClick}>Favorite</button>
           <button onClick={handleClick}>Remember</button>
         </div>
       </div>

@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Console from '../components/Console';
-import { removeTarget } from '../actions/index';
+import { addFavorite } from '../actions/index';
 
 class ConsoleContainer extends Component {
   constructor(props) {
     super(props);
+    this.handleCopyClick = this.handleCopyClick.bind(this);
+    this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
     this.renderSQLScript = this.renderSQLScript.bind(this);
     this.renderEqualLessGreater = this.renderEqualLessGreater.bind(this);
     this.renderNot = this.renderNot.bind(this);
@@ -121,9 +123,26 @@ class ConsoleContainer extends Component {
     let likeArr = this.props.selected.like[filterTableRecord]
     likeArr = likeArr.map((filter) => {
       return `${filterTableRecord} <span class='keyword'>LIKE </span>
-       ${filter.replace(/'/g, "%")}`
+       '${filter.replace(/'/g, "%")}'`
     });
     return likeArr;
+  }
+
+  handleCopyClick() {
+    console.log(document.querySelector('.console').innerText)
+    let consoleWindow = document.querySelector('.console');
+    //Seems this is necessary to fix an error in chrome
+    window.getSelection().removeAllRanges();
+    let range = document.createRange();
+    range.selectNode(consoleWindow);
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+  }
+
+  handleFavoriteClick() {
+    var favoriteName = window.prompt("What would you like to name this script?");
+    this.props.addFavorite(favoriteName, this.props.selected);
   }
 
 
@@ -131,7 +150,9 @@ class ConsoleContainer extends Component {
 
     return (
       <Console
-        script={this.renderSQLScript()} />
+        script={this.renderSQLScript()}
+        onCopyClick={this.handleCopyClick}
+        onFavoriteClick={this.handleFavoriteClick}/>
     )
   }
 }
@@ -142,4 +163,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { removeTarget })(ConsoleContainer);
+export default connect(mapStateToProps, { addFavorite })(ConsoleContainer);

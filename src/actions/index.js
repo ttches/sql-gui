@@ -12,19 +12,20 @@ export const ADD_FILTER_NOT_LIKE = 'ADD_FILTER_NOT_LIKE';
 export const REMOVE_FILTER_NOT_LIKE = 'REMOVE_FILTER_NOT_LIKE';
 export const ADD_FILTER_LINK = 'ADD_FILTER_LINK';
 export const REMOVE_FILTER_LINK = 'REMOVE_FILTER_LINK';
+export const ADD_FAVORITE = 'ADD_FAVORITE';
 
 export function updateTableTabs(tables) {
   return {
     type: UPDATE_TABLE_TABS,
     payload: tables
-  }
+  };
 }
 
 export function closeTableTab(tableTab) {
   return {
     type: CLOSE_TABLE_TAB,
     payload: tableTab
-  }
+  };
 }
 
 export function addTableTab(table) {
@@ -32,7 +33,7 @@ export function addTableTab(table) {
   return {
     type: ADD_TABLE_TAB,
     payload: table
-  }
+  };
 }
 
 export function updateSelectedTableTab(table) {
@@ -40,7 +41,7 @@ export function updateSelectedTableTab(table) {
   return {
     type: UPDATE_SELECTED_TABLE_TAB,
     payload: table
-  }
+  };
 }
 
 export function toggleSelectedRecord(record) {
@@ -48,7 +49,7 @@ export function toggleSelectedRecord(record) {
   return {
     type: TOGGLE_SELECTED_RECORD,
     payload: record
-  }
+  };
 }
 
 export function removeTarget(target) {
@@ -56,7 +57,7 @@ export function removeTarget(target) {
   return {
     type: REMOVE_TARGET,
     payload: target
-  }
+  };
 }
 
 export function selectAllRecords(records) {
@@ -64,7 +65,7 @@ export function selectAllRecords(records) {
   return {
     type: SELECT_ALL_RECORDS,
     payload: records
-  }
+  };
 }
 
 export function deselectAllRecords(table) {
@@ -72,7 +73,7 @@ export function deselectAllRecords(table) {
   return {
     type: DESELECT_ALL_RECORDS,
     payload: table
-  }
+  };
 }
 
 export function addFilterEqualLessGreater(arr) {
@@ -80,7 +81,7 @@ export function addFilterEqualLessGreater(arr) {
   return {
     type: ADD_EQUAL_LESS_GREATER,
     payload: arr
-  }
+  };
 }
 
 export function removeFilterEqualLessGreater(arr) {
@@ -88,7 +89,7 @@ export function removeFilterEqualLessGreater(arr) {
   return {
     type: REMOVE_EQUAL_LESS_GREATER,
     payload: arr
-  }
+  };
 }
 
 export function addFilterNotLike(arr) {
@@ -96,7 +97,7 @@ export function addFilterNotLike(arr) {
   return {
     type: ADD_FILTER_NOT_LIKE,
     payload: arr
-  }
+  };
 }
 
 export function removeFilterNotLike(arr) {
@@ -104,7 +105,7 @@ export function removeFilterNotLike(arr) {
   return {
     type: REMOVE_FILTER_NOT_LIKE,
     payload: arr
-  }
+  };
 }
 
 export function addFilterLink(arr) {
@@ -112,12 +113,20 @@ export function addFilterLink(arr) {
   return {
     type: ADD_FILTER_LINK,
     payload: arr
-  }
+  };
 }
 
 export function removeFilterLink() {
   console.log('Removing linked records');
   return {
     type: REMOVE_FILTER_LINK
-  }
+  };
+}
+
+export function addFavorite(name, data) {
+  console.log(`Adding ${name} to favorites`);
+  return {
+    type: ADD_FAVORITE,
+    payload: [name, data]
+  };
 }
