@@ -38,7 +38,8 @@ export default class Records extends Component {
               <option value='greater'>Greater than</option>
               <option value='less'>Less than</option>
               <option value='like'>Like</option>
-              <option value='link'>Link to record</option>
+              <option title='Format as Table.Record' value='link'>Link to record</option>
+              <option title='Enter a favorite or stash name' value='in'>In</option>
             </select>
           </div>
           <input type='text' data-filterinput={tableRecord}
