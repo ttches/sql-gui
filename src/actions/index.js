@@ -14,6 +14,7 @@ export const ADD_FILTER_LINK = 'ADD_FILTER_LINK';
 export const REMOVE_FILTER_LINK = 'REMOVE_FILTER_LINK';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
+export const INJECT_SAVED_STATE = 'INJECT_SAVED_STATE';
 
 export function updateTableTabs(tables) {
   return {
@@ -139,5 +140,13 @@ export function removeFavorite(favorite) {
   return {
     type: REMOVE_FAVORITE,
     payload: favorite
-  }
+  };
+}
+
+export function injectSavedState(state) {
+  console.log('Injecting saved state ' + state.tabs );
+  return {
+    type: INJECT_SAVED_STATE,
+    payload: state
+  };
 }

@@ -1,3 +1,5 @@
+import { cloneDeep } from 'lodash'
+
 import { ADD_FAVORITE, REMOVE_FAVORITE } from '../actions/index';
 
 const INITIAL_STATE = {};
@@ -5,9 +7,9 @@ const INITIAL_STATE = {};
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
     case ADD_FAVORITE:
-      let workingState = {...state}
+      let workingState = cloneDeep(state)
       let favorite = action.payload[0];
-      let data = action.payload[1];
+      let data = cloneDeep(action.payload[1]);
       workingState[favorite] = data;
       return workingState
 
@@ -16,7 +18,7 @@ export default function(state = INITIAL_STATE, action) {
       favorite = action.payload;
       delete workingState[favorite];
       return workingState;
-      
+
     default:
       return state;
   }

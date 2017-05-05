@@ -1,10 +1,13 @@
+import { cloneDeep } from 'lodash'
+
 import { UPDATE_TABLE_TABS, CLOSE_TABLE_TAB,
   ADD_TABLE_TAB, UPDATE_SELECTED_TABLE_TAB,
   TOGGLE_SELECTED_RECORD, REMOVE_TARGET,
   SELECT_ALL_RECORDS, DESELECT_ALL_RECORDS,
   ADD_EQUAL_LESS_GREATER, ADD_FILTER_NOT_LIKE,
   REMOVE_EQUAL_LESS_GREATER, REMOVE_FILTER_NOT_LIKE,
-  ADD_FILTER_LINK, REMOVE_FILTER_LINK } from '../actions/index';
+  ADD_FILTER_LINK, REMOVE_FILTER_LINK,
+  INJECT_SAVED_STATE } from '../actions/index';
 
 const INITIAL_STATE = {
   tables: ["ACCTCAT", "ACCTNUMS", "APPDET", "APPOINT", "APPOINTS", "ASSEMBLY", "BILLADDR", "CALLHIST", "CARD", "CATEGORY", "CENTRAL", "CODES", "CONTACTS", "CONTCAT", "CONTLOC", "CONTMAST", "CONTRACT", "CONTRCTS", "CONTYPE", "CONVERSE", "CORRLOG", "COSTCODE", "CREDACT", "CREDHEAD", "CUSTATUS", "CUSTOMER", "DBA", "DEALER", "DEALINV", "DEFAULTS", "DETMEMO", "DISPATCH", "EDEALINV", "EDEFAULT", "EHTM", "EHTMTIC", "EMAILINV", "EQUIPMNT", "ETECH", "ETICKET", "FORMS", "GLTABLE", "HELPDESK", "IMAGES", "INCOME", "INVDET", "INVMEMO", "INVOICE", "INVREC", "LABELS", "LETTER", "LOCATION", "LOCINV", "LOGTYPE", "MASSYS", "MASTSYS", "MERGELST", "MULTICOM", "PARTCAT", "PARTDESC", "PARTS", "PARTSBUY", "PARTSLVL", "PARTYPE", "PCONTRCT", "PHONELBL", "PHRASE", "PLEVELS", "PODETAIL", "POHEAD", "POMEMO", "POPAPPT", "POPBAL", "POPCRED", "POPREM", "POSITIO", "POTITLE", "QUICKCAT", "QUICKSYS", "QUICKTMP", "RAPIDSYS", "RATES", "RECDET", "RECEIPTS", "RECHARGE", "RELATION", "REMARKS", "REMINDER", "REPAIR", "ROLODEX", "SCHEDULE", "SERVICE", "SPHRASE", "STOCKLOG", "SUBCAT", "SUPMERGE", "SUPPORT", "SXPHRASE", "SYSTEM", "TASKS", "TASKSTAT", "TAXTABLE", "TBEVENTS", "TBEXCLUD", "TBGROUP", "TBLIST", "TBLOG", "TBSYSTEM", "TBTMPL", "TBTMPLHD", "TECHS", "TEMPAPD", "TICKET", "TIMECARD", "TIMECAT", "TODO", "TRANSLOG", "TROUBLE", "TSAPTMNT", "TSCOUNT", "TSMDATA", "TSRECUR", "USER17", "USER18", "USER19", "USER20", "USERLOG", "VENDNAME", "VENDOR", "ZONEDEF1", "ZONEDEF2", "ZONEMAST", "ZONES", "ZONETYPE"],
@@ -25,7 +28,7 @@ export default function(state = INITIAL_STATE, action) {
     case UPDATE_TABLE_TABS:
       const oldTab = action.payload[0];
       const newTab = action.payload[1];
-      let workingState = {...state};
+      let workingState = cloneDeep(state);
       const oldTabIndex = workingState.tabs.indexOf(oldTab);
       if (oldTabIndex === -1) {
         workingState.tabs.push(newTab);
@@ -36,7 +39,7 @@ export default function(state = INITIAL_STATE, action) {
       return workingState;
 
     case CLOSE_TABLE_TAB:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       const closeTabIndex = workingState.tabs.indexOf(action.payload);
       if (closeTabIndex === -1) {
         return state;
@@ -47,11 +50,18 @@ export default function(state = INITIAL_STATE, action) {
         workingState.targets = workingState.targets.filter((target) => {
           return !target.match(reg);
         });
-        delete workingState.lessThan[action.payload];
-        delete workingState.greaterThan[action.payload];
-        delete workingState.equal[action.payload];
-        delete workingState.not[action.payload];
-        delete workingState.like[action.payload];
+        function deleteMatches(key, arr) {
+          if (key.match(reg)) delete workingState[arr][key];
+        }
+        Object.keys(workingState.lessThan).map((key) => deleteMatches(key, 'lessThan'));
+        Object.keys(workingState.greaterThan).map((key) => deleteMatches(key, 'greaterThan'));
+        Object.keys(workingState.equal).map((key) => deleteMatches(key, 'equal'));
+        Object.keys(workingState.not).map((key) => deleteMatches(key, 'not'));
+        Object.keys(workingState.like).map((key) => deleteMatches(key, 'like'));
+        workingState.link.forEach((key) => {
+          if (key.match(reg)) workingState.link = [];
+        })
+
         if (workingState.selectedTab === action.payload) {
           workingState.selectedTab = '';
         }
@@ -59,18 +69,18 @@ export default function(state = INITIAL_STATE, action) {
       }
 
     case ADD_TABLE_TAB:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       workingState.tabs.push(action.payload);
       workingState.selectedTab = action.payload;
       return workingState;
 
     case UPDATE_SELECTED_TABLE_TAB:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       workingState.selectedTab = action.payload;
       return workingState;
 
     case TOGGLE_SELECTED_RECORD:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       const selectedRecordToToggle = action.payload;
       const targetsIndex = workingState.targets.indexOf(selectedRecordToToggle);
       if (targetsIndex === -1) {
@@ -81,14 +91,14 @@ export default function(state = INITIAL_STATE, action) {
       return workingState;
 
     case REMOVE_TARGET:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       workingState.targets = workingState.targets.filter((target) => {
         return target !== action.payload;
       });
       return workingState;
 
     case SELECT_ALL_RECORDS:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       action.payload.forEach((record) => {
         if (workingState.targets.indexOf(record) === -1) {
           workingState.targets.push(record);
@@ -97,7 +107,7 @@ export default function(state = INITIAL_STATE, action) {
       return workingState;
 
     case DESELECT_ALL_RECORDS:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       const reg = new RegExp(`^(${action.payload}\\.)`, 'i');
       workingState.targets = workingState.targets.filter((target) => {
         return !target.match(reg);
@@ -105,7 +115,7 @@ export default function(state = INITIAL_STATE, action) {
       return workingState;
 
     case ADD_EQUAL_LESS_GREATER:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       let filterType = action.payload[0];
       let tableRecord = action.payload[1];
       let filterValue = action.payload[2];
@@ -116,14 +126,14 @@ export default function(state = INITIAL_STATE, action) {
       return workingState;
 
     case REMOVE_EQUAL_LESS_GREATER:
-      workingState = {...state}
+      workingState = cloneDeep(state)
       filterType = action.payload[0];
       tableRecord = action.payload[1];
       delete workingState[filterType][tableRecord];
       return workingState;
 
     case ADD_FILTER_NOT_LIKE:
-      workingState = {...state}
+      workingState = cloneDeep(state)
       filterType = action.payload[0];
       tableRecord = action.payload[1];
       filterValue = action.payload[2];
@@ -142,7 +152,7 @@ export default function(state = INITIAL_STATE, action) {
       return workingState;
 
     case REMOVE_FILTER_NOT_LIKE:
-      workingState = {...state}
+      workingState = cloneDeep(state)
       filterType = action.payload[0];
       tableRecord = action.payload[1];
       filterValue = action.payload[2];
@@ -153,13 +163,17 @@ export default function(state = INITIAL_STATE, action) {
       return workingState;
 
     case ADD_FILTER_LINK:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       workingState.link.push(`${action.payload[0]} = ${action.payload[1]}`);
       return workingState;
 
     case REMOVE_FILTER_LINK:
-      workingState = {...state};
+      workingState = cloneDeep(state);
       workingState.link = [];
+      return workingState;
+
+    case INJECT_SAVED_STATE:
+      workingState = cloneDeep(action.payload)
       return workingState;
 
     default:

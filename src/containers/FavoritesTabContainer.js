@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import FavoritesTabs from '../components/FavoritesTabs';
-import { removeFavorite } from '../actions/index';
+import SavedTabs from '../components/SavedTabs';
+import { removeFavorite, injectSavedState } from '../actions/index';
 
 class FavoritesTabsContainer extends Component {
   constructor(props){
@@ -24,7 +24,9 @@ handleDisplayToggle() {
 }
 
 handleFavoriteClick(e) {
-  console.log(e);
+  console.log(e.target.dataset.tab)
+  const favorite = this.props.favorites[e.target.dataset.tab];
+  this.props.injectSavedState(favorite)
 }
 
 handleRemoveFavoriteClick(e) {
@@ -39,10 +41,10 @@ handleRemoveFavoriteClick(e) {
     if (this.state.buttonText === 'Hide Favorites') {
       return (
         <div>
-          <FavoritesTabs
-            onFavoriteClick={this.handleFavoriteClick}
-            onRemoveFavoriteClick={this.handleRemoveFavoriteClick}
-            favorites={Object.keys(this.props.favorites)}
+          <SavedTabs
+            onSavedClick={this.handleFavoriteClick}
+            onRemoveSavedClick={this.handleRemoveFavoriteClick}
+            saved={Object.keys(this.props.favorites)}
             tabType='favorite-tab' />
           <button onClick={this.handleDisplayToggle}>
             {this.state.buttonText}
@@ -64,8 +66,10 @@ handleRemoveFavoriteClick(e) {
 
 function mapStateToProps(state) {
   return {
-    favorites: state.favorites
+    favorites: state.favorites,
+    targets: state.selected
   };
 }
 
-export default connect(mapStateToProps, {removeFavorite})(FavoritesTabsContainer);
+export default connect(mapStateToProps,
+  { removeFavorite, injectSavedState })(FavoritesTabsContainer);
