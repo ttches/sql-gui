@@ -13,6 +13,7 @@ export const REMOVE_FILTER_NOT_LIKE = 'REMOVE_FILTER_NOT_LIKE';
 export const ADD_FILTER_LINK = 'ADD_FILTER_LINK';
 export const REMOVE_FILTER_LINK = 'REMOVE_FILTER_LINK';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
+export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
 
 export function updateTableTabs(tables) {
   return {
@@ -110,6 +111,8 @@ export function removeFilterNotLike(arr) {
 
 export function addFilterLink(arr) {
   console.log(arr)
+  let removeQuotes = arr[1].slice(1, arr[1].length -1)
+  arr[1] = removeQuotes;
   return {
     type: ADD_FILTER_LINK,
     payload: arr
@@ -129,4 +132,12 @@ export function addFavorite(name, data) {
     type: ADD_FAVORITE,
     payload: [name, data]
   };
+}
+
+export function removeFavorite(favorite) {
+  console.log(`Removing ${favorite} from favorites`);
+  return {
+    type: REMOVE_FAVORITE,
+    payload: favorite
+  }
 }
