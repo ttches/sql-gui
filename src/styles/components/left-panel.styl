@@ -10,12 +10,18 @@
   min-height 100%
   overflow-x hidden
   overflow-y auto
-  width 15%
+  width 150px
   flex 1 1 auto
 
-  .table-tab, .favorite-tab
+  .table-tab, .favorite-tab, .saved-tab
+    display inline-block
+    &:hover
+      cursor pointer
     > div, select
-      display inline-flex
-      width 125px
+      display inline-block
+      width 115px
     > button
       background-color blue
+      display inline-block
+      position relative
+      left 10px

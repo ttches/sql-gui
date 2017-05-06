@@ -3,10 +3,6 @@ import React, { Component } from 'react';
 export default class Console extends Component {
   render() {
 
-    function handleClick() {
-      console.log(document.querySelector('.console').innerText)
-    }
-    console.log(this.props.script);
     return (
       <div style={{width: '100%', display: 'inline-flex'}}>
         <div className='console'>
@@ -19,11 +15,13 @@ export default class Console extends Component {
             title='Copy to clipboard'>
             Copy
           </button>
-          <button onClick={this.props.onFavoriteClick}>
+          <button onClick={this.props.onFavoriteClick}
+            title='Save to local storage'>
             Favorite
           </button>
-          <button onClick={handleClick}>
-            Remember
+          <button onClick={this.props.onSaveClick}
+            title='Temporarily save as a variable'>
+            Save
           </button>
         </div>
       </div>

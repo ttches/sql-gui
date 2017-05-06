@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import Console from '../components/Console';
-import { addFavorite } from '../actions/index';
+import { addFavorite, addSaved } from '../actions/index';
 
 class ConsoleContainer extends Component {
   constructor(props) {
     super(props);
     this.handleCopyClick = this.handleCopyClick.bind(this);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
+    this.handleSaveClick = this.handleSaveClick.bind(this);
     this.renderSQLScript = this.renderSQLScript.bind(this);
     this.renderEqualLessGreater = this.renderEqualLessGreater.bind(this);
     this.renderNot = this.renderNot.bind(this);
@@ -140,12 +141,33 @@ class ConsoleContainer extends Component {
     window.getSelection().removeAllRanges();
   }
 
+  //Saved and favorite have many similarities that I will eventually reduce into a single function
   handleFavoriteClick() {
     var favoriteName = window.prompt("What would you like to name this script?");
+    if (favoriteName === null) return;
+    if (Object.keys(this.props.saved).some((key) => {
+      return key.toLowerCase() === favoriteName.toLowerCase();
+    })) {
+      return window.alert('Saved names must not match saved names');
+    }
     while (favoriteName.length < 1 || favoriteName.length > 50) {
       favoriteName = window.prompt("The name must be between 1 and 50 characters");
     }
     this.props.addFavorite(favoriteName, this.props.selected);
+  }
+
+  handleSaveClick() {
+    var savedName = window.prompt("What would you like to name this script?");
+    if (savedName === null) return;
+    if (Object.keys(this.props.favorites).some((key) => {
+      return key.toLowerCase() === savedName.toLowerCase();
+    })) {
+      return window.alert('Saved names must not match favorited names');
+    }
+    while (savedName.length < 1 || savedName.length > 50) {
+      savedName = window.prompt("The name must be between 1 and 50 characters");
+    }
+    this.props.addSaved(savedName, this.props.selected);
   }
 
 
@@ -155,15 +177,18 @@ class ConsoleContainer extends Component {
       <Console
         script={this.renderSQLScript()}
         onCopyClick={this.handleCopyClick}
-        onFavoriteClick={this.handleFavoriteClick}/>
+        onFavoriteClick={this.handleFavoriteClick}
+        onSaveClick={this.handleSaveClick}/>
     )
   }
 }
 
 function mapStateToProps(state) {
   return {
+    favorites: state.favorites,
+    saved: state.saved,
     selected: state.selected,
   };
 }
 
-export default connect(mapStateToProps, { addFavorite })(ConsoleContainer);
+export default connect(mapStateToProps, { addFavorite, addSaved })(ConsoleContainer);

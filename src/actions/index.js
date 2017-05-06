@@ -13,6 +13,8 @@ export const REMOVE_FILTER_NOT_LIKE = 'REMOVE_FILTER_NOT_LIKE';
 export const ADD_FILTER_LINK = 'ADD_FILTER_LINK';
 export const REMOVE_FILTER_LINK = 'REMOVE_FILTER_LINK';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
+export const ADD_SAVED = 'ADD_SAVED';
+export const REMOVE_SAVED = 'REMOVE_SAVED';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
 export const INJECT_SAVED_STATE = 'INJECT_SAVED_STATE';
 
@@ -140,6 +142,22 @@ export function removeFavorite(favorite) {
   return {
     type: REMOVE_FAVORITE,
     payload: favorite
+  };
+}
+
+export function addSaved(name, data) {
+  console.log(`Adding ${name} to saved`);
+  return {
+    type: ADD_SAVED,
+    payload: [name, data]
+  };
+}
+
+export function removeSaved(saved) {
+  console.log(`Removing ${saved} from saved`);
+  return {
+    type: REMOVE_SAVED,
+    payload: saved
   };
 }
 

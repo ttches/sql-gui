@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 
 import FavoritesTabsContainer from './containers/FavoritesTabContainer';
-import TableTabsContainer from './containers/TableTabsContainer';
-import RecordsSelectContainer from './containers/RecordsSelectContainer';
-import SelectedTablesContainer from './containers/SelectedTablesContainer';
 import FilteredTablesContainer from './containers/FilteredTablesContainer';
+import RecordsSelectContainer from './containers/RecordsSelectContainer';
+import SavedTabsContainer from './containers/SavedTabsContainer';
+import SelectedTablesContainer from './containers/SelectedTablesContainer';
+import TableTabsContainer from './containers/TableTabsContainer';
 import Console from './containers/ConsoleContainer';
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
         <div className='left-panel'>
           <TableTabsContainer />
           <FavoritesTabsContainer />
+          <SavedTabsContainer />
         </div>
         <div className='main-container'>
           <Console />
