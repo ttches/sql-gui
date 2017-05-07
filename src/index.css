@@ -282,6 +282,7 @@ body,
 .left-panel .favorite-tab,
 .left-panel .saved-tab {
   display: inline-block;
+  text-transform: capitalize;
 }
 .left-panel .table-tab:hover,
 .left-panel .favorite-tab:hover,

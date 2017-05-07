@@ -130,7 +130,6 @@ class ConsoleContainer extends Component {
   }
 
   handleCopyClick() {
-    console.log(document.querySelector('.console').innerText)
     let consoleWindow = document.querySelector('.console');
     //Seems this is necessary to fix an error in chrome
     window.getSelection().removeAllRanges();
@@ -143,10 +142,10 @@ class ConsoleContainer extends Component {
 
   //Saved and favorite have many similarities that I will eventually reduce into a single function
   handleFavoriteClick() {
-    var favoriteName = window.prompt("What would you like to name this script?");
+    var favoriteName = window.prompt("What would you like to name this script?").toLowerCase();
     if (favoriteName === null) return;
     if (Object.keys(this.props.saved).some((key) => {
-      return key.toLowerCase() === favoriteName.toLowerCase();
+      return key === favoriteName;
     })) {
       return window.alert('Saved names must not match saved names');
     }
@@ -157,10 +156,10 @@ class ConsoleContainer extends Component {
   }
 
   handleSaveClick() {
-    var savedName = window.prompt("What would you like to name this script?");
+    var savedName = window.prompt("What would you like to name this script?").toLowerCase();
     if (savedName === null) return;
     if (Object.keys(this.props.favorites).some((key) => {
-      return key.toLowerCase() === savedName.toLowerCase();
+      return key === savedName;
     })) {
       return window.alert('Saved names must not match favorited names');
     }

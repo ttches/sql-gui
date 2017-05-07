@@ -10,6 +10,7 @@ import { toggleSelectedRecord,
 class RecordsSelectContainer extends Component {
   constructor(props) {
     super(props);
+    this.formatDate = this.formatDate.bind(this);
     this.handleRecordFilterChange = this.handleRecordFilterChange.bind(this);
     this.handleSelectedRecordsToggle = this.handleSelectedRecordsToggle.bind(this);
     this.handleAddFilter = this.handleAddFilter.bind(this);
@@ -40,7 +41,7 @@ class RecordsSelectContainer extends Component {
     if (e.keyCode !== 13) return;
     const tableRecord = e.target.dataset.filterinput;
     const filterType = document.querySelector(`[data-filtertype="${tableRecord}"]`).value;
-    const filterValue = `'${e.target.value}'`;
+    const filterValue = `'${this.formatDate(e.target.value)}'`;
     if(filterType === 'equal' || filterType === 'less' || filterType === 'greater') {
       this.props.addFilterEqualLessGreater([filterType, tableRecord, filterValue]);
     } else if(filterType === 'not' || filterType === 'like') {
@@ -55,6 +56,16 @@ class RecordsSelectContainer extends Component {
       return;
     }
     e.target.value = '';
+  }
+
+  formatDate(filterValue) {
+    const reg = new RegExp(/(\d{2}\/){2}\d{4}/);
+    //If a date isn't entered, return filterValue
+    if (!(filterValue.match(reg))) return filterValue
+    const d0 = new Date('12/28/1800');
+    const d1 = new Date(filterValue);
+    //returns the amount of days since d0
+    return ((d1 - d0) / 1000 / 60 / 60 / 24).toString();
   }
 
   //If we're looking at selected table, will see if the record is in targets, otherwise will see if the reord is being filtered.
