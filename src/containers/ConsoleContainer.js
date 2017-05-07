@@ -7,6 +7,7 @@ import { addFavorite, addSaved } from '../actions/index';
 class ConsoleContainer extends Component {
   constructor(props) {
     super(props);
+    this.checkIfTablesSelected = this.checkIfTablesSelected.bind(this);
     this.handleCopyClick = this.handleCopyClick.bind(this);
     this.handleFavoriteClick = this.handleFavoriteClick.bind(this);
     this.handleSaveClick = this.handleSaveClick.bind(this);
@@ -16,40 +17,40 @@ class ConsoleContainer extends Component {
     this.renderLike = this.renderLike.bind(this);
   }
   //This is all done in strings because the styling was difficult with multiple arrays
-  renderSQLScript() {
+  renderSQLScript(selected) {
     if (this.props.selected.targets < 1) {
       return `<span>Add a table and selected a record to create SQL code</span>`
     }
     return (
       `<div>
-        <div>${this.renderTargets()}</div>
-        <div>${this.renderTables()}</div>
-        <div>${this.renderFilters() || ''}</div>
+        <div>${this.renderTargets(selected)}</div>
+        <div>${this.renderTables(selected)}</div>
+        <div>${this.renderFilters(selected) || ''}</div>
       </div>`
     )
   }
 
-  renderTargets() {
+  renderTargets(selected) {
     return (
       `<span>
         <span class='keyword'>SELECT </span>
-        ${this.props.selected.targets.join(', ')}
+        ${selected.targets.join(', ')}
       </span>`
     )
   }
 
-  renderTables() {
+  renderTables(selected) {
     return (
       `<span>
         <span class='keyword'>FROM </span>
-        ${this.consolidateSelectedTables()}
+        ${this.consolidateSelectedTables(selected)}
       </span>`
     )
   }
 
   //This removes duplicate Tables so they don't appear more than once in FROM
-  consolidateSelectedTables() {
-    let tables = Array.from(new Set(this.props.selected.targets
+  consolidateSelectedTables(selected) {
+    let tables = Array.from(new Set(selected.targets
       .map((tableRecord) => {
       tableRecord = tableRecord.slice(0, tableRecord.indexOf('.'))
       return tableRecord
@@ -57,8 +58,8 @@ class ConsoleContainer extends Component {
     return tables.join(', ');
   }
 
-  renderFilters() {
-    let { equal, lessThan, greaterThan, not, like } = this.props.selected;
+  renderFilters(selected) {
+    let { equal, lessThan, greaterThan, not, like } = selected;
     //Determines whether any filters exist
     const filterNumber = [equal, lessThan, greaterThan, not, like]
       .reduce((total, filter) => {
@@ -71,10 +72,10 @@ class ConsoleContainer extends Component {
       equalLessGreaterArr =
         equalLessGreaterArr.map(this.renderEqualLessGreater)
 
-      let notArr = Object.keys(this.props.selected.not);
+      let notArr = Object.keys(selected.not);
       notArr = notArr.map(this.renderNot)
 
-      let likeArr = Object.keys(this.props.selected.like);
+      let likeArr = Object.keys(selected.like);
       likeArr = likeArr.map(this.renderLike);
 
     //flatten array of filters and removes blanks
@@ -142,6 +143,7 @@ class ConsoleContainer extends Component {
 
   //Saved and favorite have many similarities that I will eventually reduce into a single function
   handleFavoriteClick() {
+    if (!(this.checkIfTablesSelected(this.props.selected.targets))) return alert('Records must be selected to save a script');
     var favoriteName = window.prompt("What would you like to name this script?").toLowerCase();
     if (favoriteName === null) return;
     if (Object.keys(this.props.saved).some((key) => {
@@ -156,6 +158,7 @@ class ConsoleContainer extends Component {
   }
 
   handleSaveClick() {
+    if (!(this.checkIfTablesSelected(this.props.selected.targets))) return alert('Records must be selected to save a script');
     var savedName = window.prompt("What would you like to name this script?").toLowerCase();
     if (savedName === null) return;
     if (Object.keys(this.props.favorites).some((key) => {
@@ -169,12 +172,16 @@ class ConsoleContainer extends Component {
     this.props.addSaved(savedName, this.props.selected);
   }
 
+  checkIfTablesSelected(targets) {
+    return targets.length > 0
+  }
+
 
   render() {
 
     return (
       <Console
-        script={this.renderSQLScript()}
+        script={this.renderSQLScript(this.props.selected)}
         onCopyClick={this.handleCopyClick}
         onFavoriteClick={this.handleFavoriteClick}
         onSaveClick={this.handleSaveClick}/>
