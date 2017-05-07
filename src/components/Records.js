@@ -26,7 +26,7 @@ export default class Records extends Component {
       //formats as TableName.RecordName
       let tableRecord = `${selectedTab}.${record}`
       return (
-        <div key={`${i}-${record}`}
+        <div key={`${i}-${selectedTab}`}
           className={`record-button`}
           data-record={tableRecord} >
           {record}
