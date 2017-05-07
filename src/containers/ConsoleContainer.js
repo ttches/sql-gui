@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { cloneDeep } from 'lodash';
 
 import Console from '../components/Console';
 import { addFavorite, addSaved } from '../actions/index';
@@ -61,10 +62,12 @@ class ConsoleContainer extends Component {
   renderFilters(selected) {
     let { equal, lessThan, greaterThan, not, like } = selected;
     //Determines whether any filters exist
-    const filterNumber = [equal, lessThan, greaterThan, not, like]
+    let filterNumber = [equal, lessThan, greaterThan, not, like]
       .reduce((total, filter) => {
         return total + Object.keys(filter).length
       }, 0);
+      console.log(selected.in, selected.link);
+      filterNumber += selected.in.length + selected.link.length;
     //If there are no filters, do not try to add them.
     if (filterNumber) {
       //Render an array of equal, lessThan, greaterThan filters
@@ -169,7 +172,9 @@ class ConsoleContainer extends Component {
     while (savedName.length < 1 || savedName.length > 50) {
       savedName = window.prompt("The name must be between 1 and 50 characters");
     }
-    this.props.addSaved(savedName, this.props.selected);
+    let newData = cloneDeep(this.props.selected);
+    newData.script = document.querySelector('.console').innerHTML
+    this.props.addSaved(savedName, newData);
   }
 
   checkIfTablesSelected(targets) {

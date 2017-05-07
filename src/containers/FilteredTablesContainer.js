@@ -5,7 +5,8 @@ import Filters from '../components/Filters';
 import FiltersNotLike from '../components/FiltersNotLike';
 import FiltersLink from '../components/FiltersLink';
 import { removeFilterEqualLessGreater,
-  removeFilterNotLike, removeFilterLink } from '../actions/index';
+  removeFilterNotLike, removeFilterLink,
+  removeFilterIn } from '../actions/index';
 
 class SelectedTablesContainer extends Component {
   constructor(props) {
@@ -34,6 +35,10 @@ class SelectedTablesContainer extends Component {
 
   handleFilterLinkClick() {
     this.props.removeFilterLink();
+  }
+
+  handleFilterInClick() {
+    this.props.removeFilterIn();
   }
 
   //filterValuesType is a hack beause in the redux store, the filters are greaterThan and lessThan
@@ -116,4 +121,5 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps,
   { removeFilterEqualLessGreater,
-    removeFilterNotLike, removeFilterLink })(SelectedTablesContainer);
+    removeFilterNotLike, removeFilterLink,
+    removeFilterIn })(SelectedTablesContainer);
