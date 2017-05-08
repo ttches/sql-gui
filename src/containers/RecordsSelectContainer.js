@@ -54,9 +54,11 @@ class RecordsSelectContainer extends Component {
       }
     } else if(filterType === 'in') {
       if (e.target.value.toLowerCase() in this.props.saved) {
-        this.props.addFilterIn([tableRecord, `saved.${e.target.value}`]);
+        this.props.addFilterIn([tableRecord, `saved.${e.target.value}`,
+        this.props.saved[e.target.value].script]);
       } else if (e.target.value.toLowerCase() in this.props.favorites) {
-        this.props.addFilterIn([tableRecord, `favorites.${e.target.value}`]);
+        this.props.addFilterIn([tableRecord, `favorites.${e.target.value}`,
+        this.props.favorites[e.target.value].script]);
       } else {
         return alert(`${e.target.value} not found in saved or favorites`);
       }

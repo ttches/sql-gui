@@ -66,7 +66,6 @@ class ConsoleContainer extends Component {
       .reduce((total, filter) => {
         return total + Object.keys(filter).length
       }, 0);
-      console.log(selected.in, selected.link);
       filterNumber += selected.in.length + selected.link.length;
     //If there are no filters, do not try to add them.
     if (filterNumber) {
@@ -81,9 +80,14 @@ class ConsoleContainer extends Component {
       let likeArr = Object.keys(selected.like);
       likeArr = likeArr.map(this.renderLike);
 
+      let inArr = (this.props.selected.in.length > 0)
+        ? `${this.props.selected.in[0]} <span class='keyword'>IN</span> ( ${this.props.selected.in[2]})`
+        : '';
+
+
     //flatten array of filters and removes blanks
       let filterOutput = [...equalLessGreaterArr, ...notArr, ...likeArr,
-      ...this.props.selected.link]
+      ...this.props.selected.link, inArr]
         .filter((filter) => filter !== '');
 
       filterOutput = [].concat(...filterOutput);
