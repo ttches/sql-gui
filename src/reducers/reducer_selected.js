@@ -7,7 +7,7 @@ import { UPDATE_TABLE_TABS, CLOSE_TABLE_TAB,
   ADD_EQUAL_LESS_GREATER, ADD_FILTER_NOT_LIKE,
   REMOVE_EQUAL_LESS_GREATER, REMOVE_FILTER_NOT_LIKE,
   ADD_FILTER_LINK, REMOVE_FILTER_LINK,
-  INJECT_SAVED_STATE, REMOVE_FILTER_IN } from '../actions/index';
+  INJECT_SAVED_STATE, REMOVE_FILTER_IN, ADD_FILTER_IN } from '../actions/index';
 
 const INITIAL_STATE = {
   tables: ["ACCTCAT", "ACCTNUMS", "APPDET", "APPOINT", "APPOINTS", "ASSEMBLY", "BILLADDR", "CALLHIST", "CARD", "CATEGORY", "CENTRAL", "CODES", "CONTACTS", "CONTCAT", "CONTLOC", "CONTMAST", "CONTRACT", "CONTRCTS", "CONTYPE", "CONVERSE", "CORRLOG", "COSTCODE", "CREDACT", "CREDHEAD", "CUSTATUS", "CUSTOMER", "DBA", "DEALER", "DEALINV", "DEFAULTS", "DETMEMO", "DISPATCH", "EDEALINV", "EDEFAULT", "EHTM", "EHTMTIC", "EMAILINV", "EQUIPMNT", "ETECH", "ETICKET", "FORMS", "GLTABLE", "HELPDESK", "IMAGES", "INCOME", "INVDET", "INVMEMO", "INVOICE", "INVREC", "LABELS", "LETTER", "LOCATION", "LOCINV", "LOGTYPE", "MASSYS", "MASTSYS", "MERGELST", "MULTICOM", "PARTCAT", "PARTDESC", "PARTS", "PARTSBUY", "PARTSLVL", "PARTYPE", "PCONTRCT", "PHONELBL", "PHRASE", "PLEVELS", "PODETAIL", "POHEAD", "POMEMO", "POPAPPT", "POPBAL", "POPCRED", "POPREM", "POSITIO", "POTITLE", "QUICKCAT", "QUICKSYS", "QUICKTMP", "RAPIDSYS", "RATES", "RECDET", "RECEIPTS", "RECHARGE", "RELATION", "REMARKS", "REMINDER", "REPAIR", "ROLODEX", "SCHEDULE", "SERVICE", "SPHRASE", "STOCKLOG", "SUBCAT", "SUPMERGE", "SUPPORT", "SXPHRASE", "SYSTEM", "TASKS", "TASKSTAT", "TAXTABLE", "TBEVENTS", "TBEXCLUD", "TBGROUP", "TBLIST", "TBLOG", "TBSYSTEM", "TBTMPL", "TBTMPLHD", "TECHS", "TEMPAPD", "TICKET", "TIMECARD", "TIMECAT", "TODO", "TRANSLOG", "TROUBLE", "TSAPTMNT", "TSCOUNT", "TSMDATA", "TSRECUR", "USER17", "USER18", "USER19", "USER20", "USERLOG", "VENDNAME", "VENDOR", "ZONEDEF1", "ZONEDEF2", "ZONEMAST", "ZONES", "ZONETYPE"],
@@ -17,7 +17,7 @@ const INITIAL_STATE = {
   lessThan: {},
   greaterThan: {},
   equal: {},
-  in: '',
+  in: [],
   not: {}, //not and like will need to be key:[not, not]
   like: {},
   link: []
@@ -181,12 +181,18 @@ export default function(state = INITIAL_STATE, action) {
 
     case INJECT_SAVED_STATE:
       workingState = cloneDeep(action.payload)
+      delete workingState.script;
       return workingState;
 
     case REMOVE_FILTER_IN:
       workingState = cloneDeep(state);
-      workingState.in = '';
+      workingState.in = [];
       return workingState;
+
+    case ADD_FILTER_IN:
+      workingState = cloneDeep(state);
+      workingState.in = action.payload;
+      return workingState
 
     default:
       return state;

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Filters from '../components/Filters';
 import FiltersNotLike from '../components/FiltersNotLike';
 import FiltersLink from '../components/FiltersLink';
+import FiltersIn from '../components/FiltersIn';
 import { removeFilterEqualLessGreater,
   removeFilterNotLike, removeFilterLink,
   removeFilterIn } from '../actions/index';
@@ -14,10 +15,12 @@ class SelectedTablesContainer extends Component {
     this.handleFilterEqualLessGreaterClick = this.handleFilterEqualLessGreaterClick.bind(this);
     this.handleFilterNotLikeClick = this.handleFilterNotLikeClick.bind(this);
     this.handleFilterLinkClick = this.handleFilterLinkClick.bind(this);
+    this.handleFilterInClick = this.handleFilterInClick.bind(this);
     this.generateFilteredEqualLessGreater = this.generateFilteredEqualLessGreater.bind(this);
     this.generateFilteredNot = this.generateFilteredNot.bind(this);
     this.generateFilteredLike = this.generateFilteredLike.bind(this);
     this.generateFilteredLink = this.generateFilteredLink.bind(this);
+    this.generateFilteredIn = this.generateFilteredIn.bind(this);
   }
 
   handleFilterEqualLessGreaterClick(e) {
@@ -96,6 +99,18 @@ class SelectedTablesContainer extends Component {
     )
   }
 
+  generateFilteredIn(arr) {
+    if (arr.length === 0) return;
+    return (
+      <FiltersIn
+        filterSymbol='IN'
+        filterType='in'
+        handleTargetClick={this.handleFilterInClick}
+        tableRecord={arr[0]}
+        variable={arr[1]} />
+    )
+  }
+
   //renders all selected filters
   render() {
     const equalLessGreaterArr = ['equal', 'less', 'greater'];
@@ -108,6 +123,7 @@ class SelectedTablesContainer extends Component {
         {notArr.map(this.generateFilteredNot)}
         {likeArr.map(this.generateFilteredLike)}
         {this.props.selected.link.map(this.generateFilteredLink)}
+        {this.generateFilteredIn(this.props.selected.in)}
       </span>
     )
   }

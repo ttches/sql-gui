@@ -140,16 +140,22 @@ body,
 .console-filtered .less,
 .console-filtered .greater,
 .console-filtered .like,
-.console-filtered .link {
+.console-filtered .link,
+.console-filtered .in {
   margin: 3px;
   padding: 2px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .console-filtered .equal:hover,
 .console-filtered .not:hover,
 .console-filtered .less:hover,
 .console-filtered .greater:hover,
 .console-filtered .like:hover,
-.console-filtered .link:hover {
+.console-filtered .link:hover,
+.console-filtered .in:hover {
   background-color: #f00;
   cursor: pointer;
 }
@@ -170,6 +176,9 @@ body,
 }
 .console-filtered .link {
   background-color: mediumOrchid;
+}
+.console-filtered .in {
+  background-color: #40e0d0;
 }
 .console-selected {
   border: 1px solid #000;
@@ -347,6 +356,9 @@ body,
 }
 .records .filter-link {
   background-color: mediumOrchid;
+}
+.records .filter-in {
+  background-color: #40e0d0;
 }
 .records-tabs {
   display: -webkit-inline-box;

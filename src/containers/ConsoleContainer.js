@@ -157,7 +157,9 @@ class ConsoleContainer extends Component {
     while (favoriteName.length < 1 || favoriteName.length > 50) {
       favoriteName = window.prompt("The name must be between 1 and 50 characters");
     }
-    this.props.addFavorite(favoriteName, this.props.selected);
+    let newData = cloneDeep(this.props.selected);
+    newData.script = document.querySelector('.console').innerHTML
+    this.props.addFavorite(favoriteName, newData);
   }
 
   handleSaveClick() {

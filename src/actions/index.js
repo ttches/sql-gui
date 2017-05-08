@@ -11,6 +11,7 @@ export const REMOVE_EQUAL_LESS_GREATER = 'REMOVE_EQUAL_LESS_GREATER';
 export const ADD_FILTER_NOT_LIKE = 'ADD_FILTER_NOT_LIKE';
 export const REMOVE_FILTER_NOT_LIKE = 'REMOVE_FILTER_NOT_LIKE';
 export const ADD_FILTER_LINK = 'ADD_FILTER_LINK';
+export const ADD_FILTER_IN = 'ADD_FILTER_IN';
 export const REMOVE_FILTER_IN = 'REMOVE_FILTER_IN';
 export const REMOVE_FILTER_LINK = 'REMOVE_FILTER_LINK';
 export const ADD_FAVORITE = 'ADD_FAVORITE';
@@ -127,6 +128,14 @@ export function removeFilterLink() {
   console.log('Removing linked records');
   return {
     type: REMOVE_FILTER_LINK
+  };
+}
+
+export function addFilterIn(arr) {
+  console.log(`Adding ${arr[0]} in ${arr[1]}`);
+  return {
+    type: ADD_FILTER_IN,
+    payload: arr
   };
 }
 

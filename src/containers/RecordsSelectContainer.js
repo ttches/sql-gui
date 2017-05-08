@@ -5,7 +5,7 @@ import Records from '../components/Records';
 import { toggleSelectedRecord,
   deselectAllRecords, selectAllRecords,
   addFilterEqualLessGreater, addFilterNotLike,
-  addFilterLink } from '../actions/index';
+  addFilterLink, addFilterIn } from '../actions/index';
 
 class RecordsSelectContainer extends Component {
   constructor(props) {
@@ -51,6 +51,14 @@ class RecordsSelectContainer extends Component {
         alert('Please user format TABLE.RECORD')
       } else {
         this.props.addFilterLink([tableRecord, filterValue.toUpperCase()]);
+      }
+    } else if(filterType === 'in') {
+      if (e.target.value.toLowerCase() in this.props.saved) {
+        this.props.addFilterIn([tableRecord, `saved.${e.target.value}`]);
+      } else if (e.target.value.toLowerCase() in this.props.favorites) {
+        this.props.addFilterIn([tableRecord, `favorites.${e.target.value}`]);
+      } else {
+        return alert(`${e.target.value} not found in saved or favorites`);
       }
     } else {
       return;
@@ -148,6 +156,8 @@ class RecordsSelectContainer extends Component {
 
 function mapStateToProps(state) {
   return {
+    favorites: state.favorites,
+    saved: state.saved,
     selected: state.selected,
     SQLData: state.SQLData
   };
@@ -156,4 +166,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, { toggleSelectedRecord,
   selectAllRecords, deselectAllRecords,
   addFilterEqualLessGreater, addFilterNotLike,
-  addFilterLink })(RecordsSelectContainer);
+  addFilterLink, addFilterIn })(RecordsSelectContainer);

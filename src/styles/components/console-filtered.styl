@@ -7,9 +7,10 @@
   min-height 35px
   margin-left 2px
   width calc(50% - 2px)
-  .equal, .not, .less, .greater, .like, .link
+  .equal, .not, .less, .greater, .like, .link, .in
     margin 3px
     padding 2px
+    user-select none
     &:hover
       background-color red
       cursor pointer
@@ -25,3 +26,5 @@
     background-color $filter-like
   .link
     background-color $filter-link
+  .in
+    background-color $filter-in
