@@ -12,10 +12,11 @@ export default class Records extends Component {
       let tableRecord = `${selectedTab}.${record}`
       return (
         <div key={i}
-          className={`record-button ${(checkRecordSelectedOrFiltered(tableRecord))
+          className={`record-button ${(checkRecordSelectedOrFiltered(tableRecord, selectedTab))
             ? `record-button-${recordType}`
             : ''}`}
           data-record={tableRecord}
+          data-table={selectedTab}
           onClick={handleToggle}>
           {record}
         </div>
@@ -39,7 +40,7 @@ export default class Records extends Component {
               <option value='less'>Less than</option>
               <option value='like'>Like</option>
               <option title='Format as Table.Record' value='link'>Link to record</option>
-              <option title='Enter a favorite or stash name' value='in'>In</option>
+              <option title='Enter a favorite or saved name' value='in'>In</option>
             </select>
           </div>
           <input type='text' data-filterinput={tableRecord}

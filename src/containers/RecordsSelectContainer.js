@@ -5,7 +5,7 @@ import Records from '../components/Records';
 import { toggleSelectedRecord,
   deselectAllRecords, selectAllRecords,
   addFilterEqualLessGreater, addFilterNotLike,
-  addFilterLink, addFilterIn } from '../actions/index';
+  addFilterLink, addFilterIn, selectManyRecords } from '../actions/index';
 
 class RecordsSelectContainer extends Component {
   constructor(props) {
@@ -34,6 +34,15 @@ class RecordsSelectContainer extends Component {
 
   //Toggles a selected record as a target or not as a target in redux state
   handleSelectedRecordsToggle(e) {
+    const tableRecord = (e.target.dataset.record);
+    const table = (e.target.dataset.table);
+    if (this.props.selected.targets.indexOf(`${table}.*`) > -1) {
+      let record = tableRecord.slice(tableRecord.indexOf('.') + 1);
+      let tableRecords = this.props.SQLData[table].filter((dataRecord) => {
+        return dataRecord !== record;
+      });
+      return this.props.selectManyRecords([table, tableRecords])
+    }
     this.props.toggleSelectedRecord(e.target.dataset.record);
   }
 
@@ -79,9 +88,10 @@ class RecordsSelectContainer extends Component {
   }
 
   //If we're looking at selected table, will see if the record is in targets, otherwise will see if the reord is being filtered.
-  isRecordSelectedOrFiltered(record) {
+  isRecordSelectedOrFiltered(record, table) {
     if (this.state.viewRecords === 'selected') {
-      return (this.props.selected.targets.indexOf(record) > -1)
+      return (this.props.selected.targets.indexOf(record) > -1
+      || this.props.selected.targets.indexOf(`${table}.*`) > -1)
     }
   }
 
@@ -96,10 +106,11 @@ class RecordsSelectContainer extends Component {
     const records = this.props.SQLData[table];
     const tableRecords = records.map((record) => `${table}.${record}`);
     //Is every record in this table selected?
-    (tableRecords.every((record) => {
+    (this.props.selected.targets.indexOf(`${table}.*`) > -1
+    || tableRecords.every((record) => {
       return this.props.selected.targets.indexOf(record) > -1
     })) ? this.props.deselectAllRecords(table)
-        : this.props.selectAllRecords(tableRecords)
+        : this.props.selectAllRecords(table)
   }
 
   render() {
@@ -168,4 +179,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, { toggleSelectedRecord,
   selectAllRecords, deselectAllRecords,
   addFilterEqualLessGreater, addFilterNotLike,
-  addFilterLink, addFilterIn })(RecordsSelectContainer);
+  addFilterLink, addFilterIn, selectManyRecords })(RecordsSelectContainer);

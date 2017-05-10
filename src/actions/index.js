@@ -19,6 +19,7 @@ export const ADD_SAVED = 'ADD_SAVED';
 export const REMOVE_SAVED = 'REMOVE_SAVED';
 export const REMOVE_FAVORITE = 'REMOVE_FAVORITE';
 export const INJECT_SAVED_STATE = 'INJECT_SAVED_STATE';
+export const SELECT_MANY_RECORDS = 'SELECT_MANY_RECORDS';
 
 export function updateTableTabs(tables) {
   return {
@@ -183,5 +184,13 @@ export function injectSavedState(state) {
   return {
     type: INJECT_SAVED_STATE,
     payload: state
+  };
+}
+
+export function selectManyRecords(arr) {
+  console.log(arr);
+  return {
+    type: SELECT_MANY_RECORDS,
+    payload: arr
   };
 }

@@ -7,7 +7,8 @@ import { UPDATE_TABLE_TABS, CLOSE_TABLE_TAB,
   ADD_EQUAL_LESS_GREATER, ADD_FILTER_NOT_LIKE,
   REMOVE_EQUAL_LESS_GREATER, REMOVE_FILTER_NOT_LIKE,
   ADD_FILTER_LINK, REMOVE_FILTER_LINK,
-  INJECT_SAVED_STATE, REMOVE_FILTER_IN, ADD_FILTER_IN } from '../actions/index';
+  INJECT_SAVED_STATE, REMOVE_FILTER_IN, ADD_FILTER_IN,
+  SELECT_MANY_RECORDS } from '../actions/index';
 
 const INITIAL_STATE = {
   tables: ["ACCTCAT", "ACCTNUMS", "APPDET", "APPOINT", "APPOINTS", "ASSEMBLY", "BILLADDR", "CALLHIST", "CARD", "CATEGORY", "CENTRAL", "CODES", "CONTACTS", "CONTCAT", "CONTLOC", "CONTMAST", "CONTRACT", "CONTRCTS", "CONTYPE", "CONVERSE", "CORRLOG", "COSTCODE", "CREDACT", "CREDHEAD", "CUSTATUS", "CUSTOMER", "DBA", "DEALER", "DEALINV", "DEFAULTS", "DETMEMO", "DISPATCH", "EDEALINV", "EDEFAULT", "EHTM", "EHTMTIC", "EMAILINV", "EQUIPMNT", "ETECH", "ETICKET", "FORMS", "GLTABLE", "HELPDESK", "IMAGES", "INCOME", "INVDET", "INVMEMO", "INVOICE", "INVREC", "LABELS", "LETTER", "LOCATION", "LOCINV", "LOGTYPE", "MASSYS", "MASTSYS", "MERGELST", "MULTICOM", "PARTCAT", "PARTDESC", "PARTS", "PARTSBUY", "PARTSLVL", "PARTYPE", "PCONTRCT", "PHONELBL", "PHRASE", "PLEVELS", "PODETAIL", "POHEAD", "POMEMO", "POPAPPT", "POPBAL", "POPCRED", "POPREM", "POSITIO", "POTITLE", "QUICKCAT", "QUICKSYS", "QUICKTMP", "RAPIDSYS", "RATES", "RECDET", "RECEIPTS", "RECHARGE", "RELATION", "REMARKS", "REMINDER", "REPAIR", "ROLODEX", "SCHEDULE", "SERVICE", "SPHRASE", "STOCKLOG", "SUBCAT", "SUPMERGE", "SUPPORT", "SXPHRASE", "SYSTEM", "TASKS", "TASKSTAT", "TAXTABLE", "TBEVENTS", "TBEXCLUD", "TBGROUP", "TBLIST", "TBLOG", "TBSYSTEM", "TBTMPL", "TBTMPLHD", "TECHS", "TEMPAPD", "TICKET", "TIMECARD", "TIMECAT", "TODO", "TRANSLOG", "TROUBLE", "TSAPTMNT", "TSCOUNT", "TSMDATA", "TSRECUR", "USER17", "USER18", "USER19", "USER20", "USERLOG", "VENDNAME", "VENDOR", "ZONEDEF1", "ZONEDEF2", "ZONEMAST", "ZONES", "ZONETYPE"],
@@ -46,7 +47,7 @@ export default function(state = INITIAL_STATE, action) {
         return state;
       } else {
         //Remove everything selected by the closed table
-        const reg = new RegExp(`^(${action.payload}\\.)`, 'i');
+        let reg = new RegExp(`^(${action.payload}\\.)`, 'i');
         workingState.tabs.splice(closeTabIndex, 1);
         workingState.targets = workingState.targets.filter((target) => {
           return !target.match(reg);
@@ -98,12 +99,31 @@ export default function(state = INITIAL_STATE, action) {
       });
       return workingState;
 
+    //I formatted this to take over the work of DESELECT_ALL_RECORDS. I haven't removed DESELECT yet because I don't have time to test right now.
     case SELECT_ALL_RECORDS:
       workingState = cloneDeep(state);
-      action.payload.forEach((record) => {
-        if (workingState.targets.indexOf(record) === -1) {
-          workingState.targets.push(record);
-        }
+      let table = action.payload;
+      let toggle = (workingState.targets.indexOf(`${table}.*`) > -1)
+        ? 'off' : 'on';
+      let regTable = new RegExp(`^(${table}\\.)`, 'i');
+      workingState.targets = workingState.targets.filter((target) => {
+        return !target.match(regTable);
+      });
+      if (toggle === 'on') {
+        workingState.targets.push(`${table}.*`)
+      }
+      return workingState;
+
+    case SELECT_MANY_RECORDS:
+      workingState = cloneDeep(state);
+      table = action.payload[0];
+      let tableRecords = action.payload[1];
+      regTable = new RegExp(`^(${table}\\.)`, 'i');
+      workingState.targets = workingState.targets.filter((target) => {
+        return !target.match(regTable);
+      });
+      tableRecords.forEach((record) => {
+        workingState.targets.push(`${table}.${record}`)
       });
       return workingState;
 
