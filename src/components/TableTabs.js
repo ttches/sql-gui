@@ -31,6 +31,7 @@ export default class TableTabs extends Component {
 
     return (
       <div className='table-tabs'>
+        <span className='title'>Tables</span>
         {this.props.tabs.map(renderTableTabs)}
         <button
           className='add-table-tab'

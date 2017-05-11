@@ -2,10 +2,15 @@
 @import '../vars.styl';
 
 .console-filtered
+  background-color $console-background
   border black
+  font-family $mono
+  font-size 1.2em
+  overflow-x auto
   margin-top 4px
-  min-height 35px
+  min-height 100px
   margin-left 2px
+  user-select none
   width calc(50% - 2px)
   .equal, .not, .less, .greater, .like, .link, .in
     margin 3px

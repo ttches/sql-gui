@@ -8,7 +8,7 @@ export default class SavedTabs extends Component {
 
     function renderSaved(saved, i) {
       return (
-        <div className={tabType} key={i}>
+        <div className={`${tabType}`} key={i}>
           <div data-tab={saved} onClick={onSavedClick}>
             {saved}</div>
           <button onClick={ onRemoveSavedClick} data-tab={saved}>x</button>
@@ -18,7 +18,9 @@ export default class SavedTabs extends Component {
     }
 
     return (
-      <div>{this.props.saved.map(renderSaved)}</div>
+      <div>
+        <div>{this.props.saved.map(renderSaved)}</div>
+      </div>
     )
   }
 }

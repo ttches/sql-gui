@@ -1,15 +1,25 @@
+@import 'nib';
+@import '../vars.styl';
+
 .console-selected
+  background-color $console-background
   border black
+  font-family $mono
+  font-size 1.2em
+  height 100px
   margin-right 2px
   margin-top 4px
-  min-height 35px
+  overflow-y auto
+  user-select none
   width: calc(50% - 2px)
   .target
     background-color lightgreen
     margin 3px
     padding 2px
+    user-select none
     &:hover
       background-color red
       cursor pointer
 .focused-record-tab
   color green
+  user-select none

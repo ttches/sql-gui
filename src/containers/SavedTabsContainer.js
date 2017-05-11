@@ -25,6 +25,7 @@ handleRemoveSavedClick(e) {
   render() {
     return (
       <div>
+        <span className='title'>Saved</span>
         <SavedTabs
           onSavedClick={this.handleSavedClick}
           onRemoveSavedClick={this.handleRemoveSavedClick}

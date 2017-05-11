@@ -3,9 +3,9 @@
 
 .left-panel
   display inline-flex
-  background-color orchid
+  color hsla(169, 100%, 100%, 0.8)
   flex-direction column
-  height 100%
+  font-weight 600
   max-width 150px
   min-height 100%
   overflow-x hidden
@@ -13,16 +13,38 @@
   width 150px
   flex 1 1 auto
 
+  .title
+    color white
+    display flex
+    font-size 1.3em
+    justify-content center
+    padding-top 35px
+    width 100%
+
   .table-tab, .favorite-tab, .saved-tab
     display inline-block
+    padding 2px
+    position relative
     text-transform capitalize
+    width 100%
     &:hover
+      background-color hsla(0, 0%, 0%, 0.2)
       cursor pointer
+      color white
+      > button
+        cursor pointer
+        display inline-block
     > div, select
       display inline-block
       width 115px
     > button
-      background-color blue
-      display inline-block
-      position relative
-      left 10px
+      background-color white
+      border none
+      border-radius 50%
+      color #2de2d4
+      display none
+      font-size 10px
+      line-height 1.5em
+      position absolute
+      right 2px
+      top 3px

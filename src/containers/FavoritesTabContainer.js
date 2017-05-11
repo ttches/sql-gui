@@ -41,6 +41,7 @@ handleRemoveFavoriteClick(e) {
     if (this.state.buttonText === 'Hide Favorites') {
       return (
         <div>
+          <span className='title'>Favorites</span>
           <SavedTabs
             onSavedClick={this.handleFavoriteClick}
             onRemoveSavedClick={this.handleRemoveFavoriteClick}
@@ -54,6 +55,7 @@ handleRemoveFavoriteClick(e) {
     } else {
       return (
         <div>
+          <span className='title'>Favorites</span>
           <button onClick={this.handleDisplayToggle}>
             {this.state.buttonText}
           </button>
