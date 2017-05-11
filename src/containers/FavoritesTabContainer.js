@@ -45,9 +45,9 @@ handleRemoveFavoriteClick(e) {
           <SavedTabs
             onSavedClick={this.handleFavoriteClick}
             onRemoveSavedClick={this.handleRemoveFavoriteClick}
-            saved={Object.keys(this.props.favorites)}
+            saved={Object.keys(this.props.favorites).sort()}
             tabType='favorite-tab' />
-          <button onClick={this.handleDisplayToggle}>
+          <button className='left-buttons' onClick={this.handleDisplayToggle}>
             {this.state.buttonText}
           </button>
         </div>
@@ -56,7 +56,7 @@ handleRemoveFavoriteClick(e) {
       return (
         <div>
           <span className='title'>Favorites</span>
-          <button onClick={this.handleDisplayToggle}>
+          <button className='left-buttons' onClick={this.handleDisplayToggle}>
             {this.state.buttonText}
           </button>
         </div>

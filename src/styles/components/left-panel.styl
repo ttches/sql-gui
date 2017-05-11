@@ -4,14 +4,30 @@
 .left-panel
   display inline-flex
   color hsla(169, 100%, 100%, 0.8)
+  flex 1 1 auto
   flex-direction column
   font-weight 600
   max-width 150px
   min-height 100%
   overflow-x hidden
   overflow-y auto
+  user-select none
   width 150px
-  flex 1 1 auto
+
+  .left-buttons
+    background-color hsla(169, 100%, 100%, 0.8)
+    border 2px solid $alt-color
+    color black
+    margin 5px 5px
+    padding 5px 0px
+    width 80%
+    &:hover
+      background-color $alt-color
+      color white
+    &:active
+      background-color darken($alt-color, 10)
+      color white
+
 
   .title
     color white
@@ -38,13 +54,16 @@
       display inline-block
       width 115px
     > button
-      background-color white
+      background-color hsla(169, 100%, 100%, 0.8)
       border none
       border-radius 50%
       color #2de2d4
       display none
       font-size 10px
+      font-weight 600
       line-height 1.5em
       position absolute
       right 2px
       top 3px
+      &:hover
+        background-color white

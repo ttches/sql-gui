@@ -4,40 +4,91 @@
 .records-container
   display inline-block
   button
+    background-color hsla(169, 100%, 100%, 0.0)
+    border 2px solid $alt-color
+    color black
     margin 3px
     padding 5px
+    &:hover
+      background-color $alt-color
+      color white
+      cursor pointer
 
 .records
   .record-button
-    background-color lightgrey
+    border 2px solid $main-color
     display inline-block
     margin 3px
     padding 5px
     user-select none
     &:hover
+      background-color $main-color
+      color white
       cursor pointer
     select, input
       width 100%
   .record-button-selected
-    background-color $button-selected
+    background-color $main-color
+    color white
   .filter-not
     background-color $filter-not
+    border 2px solid $filter-not
+    &:hover
+      background-color $filter-not
   .filter-greater
     background-color $filter-greater
+    border 2px solid $filter-greater
+    &:hover
+      background-color $filter-greater
   .filter-less
     background-color $filter-less
+    border 2px solid $filter-less
+    &:hover
+      background-color $filter-less
   .filter-like
     background-color $filter-like
+    border 2px solid $filter-like
+    &:hover
+      background-color $filter-like
   .filter-link
     background-color $filter-link
+    border 2px solid $filter-link
+    &:hover
+      background-color $filter-link
   .filter-in
     background-color $filter-in
+    border 2px solid $filter-in
+    &:hover
+      background-color $filter-in
+
 
 .records-tabs
-  display inline-flex
-  justify-content space-around
   align-items center
+  display inline-flex
   height 45px
+  user-select none
   width 100%
   &:hover
     cursor pointer
+
+.focused-record-tab, .unfocused-record-tab
+  align-items center
+  display flex
+  font-size 1.2em
+  font-weight 600
+  justify-content center
+  height 35px
+  width 50%
+
+.focused-record-tab
+  border-top 1px solid $tab-border-color
+  border-left 1px solid $tab-border-color
+  border-right 1px solid $tab-border-color
+  color black
+
+.unfocused-record-tab
+  background-color hsla(0, 0%, 0%, 0.1)
+  border-bottom 1px solid $tab-border-color
+  color hsla(0, 0%, 0%, 0.7)
+  &:hover
+    background-color hsla(360, 100%, 100%, 0)

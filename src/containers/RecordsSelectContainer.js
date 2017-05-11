@@ -27,7 +27,7 @@ class RecordsSelectContainer extends Component {
     const value = e.target.value;
     document.querySelector(`[data-record="${tableRecord}"]`).classList
       .remove('filter-not', 'filter-greater', 'filter-less',
-        'filter-like', 'filter-link');
+        'filter-like', 'filter-link', 'filter-in');
     document.querySelector(`[data-record="${tableRecord}"]`).classList
       .add(`filter-${value}`)
   }
@@ -142,6 +142,7 @@ class RecordsSelectContainer extends Component {
         <div className='records-container'>
           <span><button
             onClick={this.toggleSelectAllRecords}
+            className='select-all-button'
             style={{display: (this.state.viewRecords === 'selected'
             && this.props.selected.selectedTab.length > 0)
             ? 'inline-block' : 'none'}}>Select all

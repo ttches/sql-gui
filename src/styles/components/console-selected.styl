@@ -3,7 +3,7 @@
 
 .console-selected
   background-color $console-background
-  border black
+  border $tab-border-color
   font-family $mono
   font-size 1.2em
   height 100px
@@ -13,13 +13,12 @@
   user-select none
   width: calc(50% - 2px)
   .target
-    background-color lightgreen
+    border solid 2px $main-color
     margin 3px
     padding 2px
     user-select none
     &:hover
-      background-color red
+      border 2px solid $alt-color
+      background-color $alt-color
+      color white
       cursor pointer
-.focused-record-tab
-  color green
-  user-select none

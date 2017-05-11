@@ -34,7 +34,7 @@ export default class TableTabs extends Component {
         <span className='title'>Tables</span>
         {this.props.tabs.map(renderTableTabs)}
         <button
-          className='add-table-tab'
+          className='left-buttons'
           style={{display: `${(this.props.tabs.length > 1) ? 'none' : 'block'}`}}
           onClick={this.props.onAddTableTab}>
             Add Table

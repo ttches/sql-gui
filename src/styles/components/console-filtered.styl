@@ -3,12 +3,12 @@
 
 .console-filtered
   background-color $console-background
-  border black
+  border $tab-border-color
   font-family $mono
   font-size 1.2em
   overflow-x auto
   margin-top 4px
-  min-height 100px
+  height 100px
   margin-left 2px
   user-select none
   width calc(50% - 2px)
@@ -17,19 +17,21 @@
     padding 2px
     user-select none
     &:hover
-      background-color red
+      border 2px solid $alt-color
+      background-color $alt-color
+      color white
       cursor pointer
   .equal
-    background-color lightgreen
+    border 2px solid $filter-equal
   .not
-    background-color $filter-not
+    border 2px solid $filter-not
   .less
-    background-color $filter-less
+    border 2px solid $filter-less
   .greater
-    background-color $filter-greater
+    border 2px solid $filter-greater
   .like
-    background-color $filter-like
+    border 2px solid $filter-like
   .link
-    background-color $filter-link
+    border 2px solid $filter-link
   .in
-    background-color $filter-in
+    border 2px solid $filter-in
