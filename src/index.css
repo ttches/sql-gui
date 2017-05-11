@@ -332,13 +332,7 @@ body {
   display: box;
   display: flex;
   font-size: 1.3em;
-  -webkit-box-pack: center;
-  -moz-box-pack: center;
-  -o-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
-  padding-top: 35px;
+  margin: 35px 10px 5px 10px;
   width: 100%;
 }
 .left-panel .table-tab,
