@@ -48,6 +48,8 @@ export default function(state = INITIAL_STATE, action) {
       } else {
         //Remove everything selected by the closed table
         let reg = new RegExp(`^(${action.payload}\\.)`, 'i');
+        if (workingState.in.indexOf(`${action.payload}.`)) workingState.in = [];
+        if (workingState.link.indexOf(`${action.payload}.`)) workingState.link = [];
         workingState.tabs.splice(closeTabIndex, 1);
         workingState.targets = workingState.targets.filter((target) => {
           return !target.match(reg);
@@ -60,9 +62,8 @@ export default function(state = INITIAL_STATE, action) {
         Object.keys(workingState.equal).map((key) => deleteMatches(key, 'equal'));
         Object.keys(workingState.not).map((key) => deleteMatches(key, 'not'));
         Object.keys(workingState.like).map((key) => deleteMatches(key, 'like'));
-        workingState.link.forEach((key) => {
-          if (key.match(reg)) workingState.link = [];
-        })
+
+
 
         if (workingState.selectedTab === action.payload) {
           workingState.selectedTab = '';

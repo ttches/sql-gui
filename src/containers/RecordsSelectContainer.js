@@ -48,9 +48,17 @@ class RecordsSelectContainer extends Component {
 
   handleAddFilter(e) {
     if (e.keyCode !== 13) return;
+    const periodIndex = e.target.value.indexOf('.');
+    const splitValue = (periodIndex > -1) ? e.target.value.toUpperCase().split('.') : null;
     const tableRecord = e.target.dataset.filterinput;
     const filterType = document.querySelector(`[data-filtertype="${tableRecord}"]`).value;
-    const filterValue = `'${this.formatDate(e.target.value)}'`;
+    //If the input is a tabe.record variable, don't put quotes around it
+    console.log((splitValue))
+    const filterValue =
+    ((splitValue) && (this.props.SQLData[splitValue[0]])
+      && this.props.SQLData[splitValue[0]].indexOf(splitValue[1]) > -1)
+        ? e.target.value.toUpperCase()
+        : `'${this.formatDate(e.target.value)}'`;
     if(filterType === 'equal' || filterType === 'less' || filterType === 'greater') {
       this.props.addFilterEqualLessGreater([filterType, tableRecord, filterValue]);
     } else if(filterType === 'not' || filterType === 'like') {
@@ -62,12 +70,13 @@ class RecordsSelectContainer extends Component {
         this.props.addFilterLink([tableRecord, filterValue.toUpperCase()]);
       }
     } else if(filterType === 'in') {
-      if (e.target.value.toLowerCase() in this.props.saved) {
-        this.props.addFilterIn([tableRecord, `saved.${e.target.value}`,
-        this.props.saved[e.target.value].script]);
-      } else if (e.target.value.toLowerCase() in this.props.favorites) {
-        this.props.addFilterIn([tableRecord, `favorites.${e.target.value}`,
-        this.props.favorites[e.target.value].script]);
+      let lowerCaseValue = e.target.value.toLowerCase();
+      if (lowerCaseValue in this.props.saved) {
+        this.props.addFilterIn([tableRecord, `saved.${lowerCaseValue}`,
+        this.props.saved[lowerCaseValue].script]);
+      } else if (lowerCaseValue in this.props.favorites) {
+        this.props.addFilterIn([tableRecord, `favorites.${lowerCaseValue}`,
+        this.props.favorites[lowerCaseValue].script]);
       } else {
         return alert(`${e.target.value} not found in saved or favorites`);
       }
