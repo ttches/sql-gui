@@ -302,7 +302,7 @@ body {
   -webkit-flex-flow: row wrap;
   -ms-flex-flow: row wrap;
   flex-flow: row wrap;
-  margin-top: 35px;
+  margin: 35px 20px 20px 0px;
   padding: 5px;
   width: 90%;
 }
@@ -342,7 +342,7 @@ body {
   background-color: rgba(255,255,255,0.8);
   border: 2px solid #dc1479;
   color: #000;
-  margin: 5px 5px;
+  margin: 5px 10px;
   padding: 5px 0px;
   width: 80%;
 }
@@ -363,17 +363,18 @@ body {
   display: box;
   display: flex;
   font-size: 1.3em;
-  margin: 35px 10px 5px 10px;
+  margin: 35px 5px 5px 10px;
   width: 100%;
 }
 .left-panel .table-tab,
 .left-panel .favorite-tab,
 .left-panel .saved-tab {
   display: inline-block;
+  margin-left: 15px;
   padding: 2px;
   position: relative;
   text-transform: capitalize;
-  width: 100%;
+  width: calc(100% - 15px);
 }
 .left-panel .table-tab:hover,
 .left-panel .favorite-tab:hover,
@@ -395,7 +396,7 @@ body {
 .left-panel .favorite-tab select,
 .left-panel .saved-tab select {
   display: inline-block;
-  width: 115px;
+  width: 100px;
 }
 .left-panel .table-tab > button,
 .left-panel .favorite-tab > button,
@@ -520,6 +521,9 @@ body {
 .records-tabs:hover {
   cursor: pointer;
 }
+.records-tabs :first-child {
+  border-right: 1px solid rgba(0,0,0,0.7);
+}
 .focused-record-tab,
 .unfocused-record-tab {
   -webkit-box-align: center;
@@ -547,12 +551,10 @@ body {
 }
 .focused-record-tab {
   border-top: 1px solid rgba(0,0,0,0.7);
-  border-left: 1px solid rgba(0,0,0,0.7);
-  border-right: 1px solid rgba(0,0,0,0.7);
   color: #000;
 }
 .unfocused-record-tab {
-  background-color: rgba(0,0,0,0.1);
+  background-color: rgba(0,55,66,0.1);
   border-bottom: 1px solid rgba(0,0,0,0.7);
   color: rgba(0,0,0,0.7);
 }

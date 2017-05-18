@@ -70,6 +70,8 @@
   width 100%
   &:hover
     cursor pointer
+  :first-child
+    border-right 1px solid $tab-border-color
 
 .focused-record-tab, .unfocused-record-tab
   align-items center
@@ -82,12 +84,10 @@
 
 .focused-record-tab
   border-top 1px solid $tab-border-color
-  border-left 1px solid $tab-border-color
-  border-right 1px solid $tab-border-color
   color black
 
 .unfocused-record-tab
-  background-color hsla(0, 0%, 0%, 0.1)
+  background-color hsla(190, 100%, 13%, 0.1)
   border-bottom 1px solid $tab-border-color
   color hsla(0, 0%, 0%, 0.7)
   &:hover
