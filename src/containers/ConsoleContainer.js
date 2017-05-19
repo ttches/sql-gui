@@ -20,7 +20,7 @@ class ConsoleContainer extends Component {
   //This is all done in strings because the styling was difficult with multiple arrays
   renderSQLScript(selected) {
     if (this.props.selected.targets < 1) {
-      return `<span>Add a table and selected a record to create SQL code</span>`
+      return `<span>To create SQL code, select records below from the table selection on the left</span>`
     }
     return (
       `<div>

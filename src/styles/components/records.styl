@@ -4,25 +4,36 @@
 .records-container
   display inline-block
   button
-    background-color hsla(169, 100%, 100%, 0.0)
-    border 2px solid $alt-color
-    color black
-    margin 3px
-    padding 5px
+    background-color lighten($alt-color, 10)
+    border-radius 2px
+    box-shadow 0px 0px 4px 0px rgba(50, 50, 50, 0.4)
+    border none
+    color white
+    margin 4px
+    padding 6px
+    &:active
+      background-color darken($alt-color, 5)
+      box-shadow inset 0px 0px 4px 0px rgba(50, 50, 50, 0.8)
     &:hover
       background-color $alt-color
       color white
       cursor pointer
+    &:focus
+      outline none
 
 .records
   .record-button
-    border 2px solid $main-color
+    background-color lighten($main-color, 30)
+    border-radius 2px
+    box-shadow 0px 0px 2px 0px rgba(50, 50, 50, 0.4)
     display inline-block
-    margin 3px
-    padding 5px
+    margin 4px
+    padding 6px
     user-select none
+    &:active
+      box-shadow inset 0px 0px 4px 0px rgba(50, 50, 50, 0.8)
     &:hover
-      background-color $main-color
+      background-color lighten($main-color, 15)
       color white
       cursor pointer
     select, input
@@ -30,6 +41,9 @@
   .record-button-selected
     background-color $main-color
     color white
+    &:hover
+      background-color lighten($main-color, 15)
+      color black
   .filter-not
     background-color $filter-not
     border 2px solid $filter-not
@@ -89,9 +103,9 @@
   color black
 
 .unfocused-record-tab
-  background-color hsla(190, 100%, 13%, 0.1)
+  background linear-gradient(hsla(190, 100%, 13%, 0), hsla(190, 100%, 13%, 0.1))
   border-bottom 1px solid $tab-border-color
   box-shadow inset 0px -1px 1px 0px rgba(50, 50, 50, 0.2);
   color hsla(0, 0%, 0%, 0.7)
   &:hover
-    background-color hsla(360, 100%, 100%, 0)
+    background hsla(360, 100%, 100%, 0)
