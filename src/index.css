@@ -291,8 +291,8 @@ body {
   -ms-flex-item-align: start;
   background-color: #e9ebee;
   border-radius: 5px;
-  -webkit-box-shadow: -1px -1px 2px 0px rgba(50,50,50,0.5);
-  box-shadow: -1px -1px 2px 0px rgba(50,50,50,0.5);
+  -webkit-box-shadow: 0px 0px 10px 0px rgba(50,50,50,0.5);
+  box-shadow: 0px 0px 10px 0px rgba(50,50,50,0.5);
   display: -webkit-box;
   display: -moz-box;
   display: -webkit-flex;
@@ -558,11 +558,15 @@ body {
 }
 .focused-record-tab {
   border-top: 1px solid #939dab;
+  -webkit-box-shadow: 0px -1px 1px 0px rgba(50,50,50,0.2);
+  box-shadow: 0px -1px 1px 0px rgba(50,50,50,0.2);
   color: #000;
 }
 .unfocused-record-tab {
   background-color: rgba(0,55,66,0.1);
   border-bottom: 1px solid #939dab;
+  -webkit-box-shadow: inset 0px -1px 1px 0px rgba(50,50,50,0.2);
+  box-shadow: inset 0px -1px 1px 0px rgba(50,50,50,0.2);
   color: rgba(0,0,0,0.7);
 }
 .unfocused-record-tab:hover {
