@@ -91,7 +91,7 @@ class ConsoleContainer extends Component {
         .filter((filter) => filter !== '');
 
       filterOutput = [].concat(...filterOutput);
-      console.log(filterOutput);
+      ////console.log(filterOutput);
       return (
         `<span>
           <span class='keyword'>WHERE </span>

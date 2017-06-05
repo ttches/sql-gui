@@ -16,7 +16,7 @@ export default class FiltersNotLike extends Component {
           data-filtertable={filterTableRecord}
           data-filtertype={filterType}
           data-filtervalue={filterValue}
-          >
+        >
           {`${filterTableRecord} ${filterSymbol} ${filterValue}`}
         </div>
       )

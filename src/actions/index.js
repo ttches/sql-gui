@@ -36,7 +36,7 @@ export function closeTableTab(tableTab) {
 }
 
 export function addTableTab(table) {
-  console.log('adding');
+  ////console.log('adding');
   return {
     type: ADD_TABLE_TAB,
     payload: table
@@ -44,7 +44,7 @@ export function addTableTab(table) {
 }
 
 export function updateSelectedTableTab(table) {
-  console.log('SELECTING', table);
+  ////console.log('SELECTING', table);
   return {
     type: UPDATE_SELECTED_TABLE_TAB,
     payload: table
@@ -52,7 +52,7 @@ export function updateSelectedTableTab(table) {
 }
 
 export function toggleSelectedRecord(record) {
-  console.log('toggle', record);
+  ////console.log('toggle', record);
   return {
     type: TOGGLE_SELECTED_RECORD,
     payload: record
@@ -60,7 +60,7 @@ export function toggleSelectedRecord(record) {
 }
 
 export function removeTarget(target) {
-  console.log('removing', target);
+  ////console.log('removing', target);
   return {
     type: REMOVE_TARGET,
     payload: target
@@ -68,7 +68,7 @@ export function removeTarget(target) {
 }
 
 export function selectAllRecords(records) {
-  console.log('selecting', records);
+  ////console.log('selecting', records);
   return {
     type: SELECT_ALL_RECORDS,
     payload: records
@@ -76,7 +76,7 @@ export function selectAllRecords(records) {
 }
 
 export function deselectAllRecords(table) {
-  console.log('deselecting', table);
+  ////console.log('deselecting', table);
   return {
     type: DESELECT_ALL_RECORDS,
     payload: table
@@ -84,7 +84,7 @@ export function deselectAllRecords(table) {
 }
 
 export function addFilterEqualLessGreater(arr) {
-  console.log(`adding ${arr[1]} to ${arr[0]}`);
+  ////console.log(`adding ${arr[1]} to ${arr[0]}`);
   return {
     type: ADD_EQUAL_LESS_GREATER,
     payload: arr
@@ -92,7 +92,7 @@ export function addFilterEqualLessGreater(arr) {
 }
 
 export function removeFilterEqualLessGreater(arr) {
-  console.log(`removing ${arr[1]} from ${arr[0]}`);
+  ////console.log(`removing ${arr[1]} from ${arr[0]}`);
   return {
     type: REMOVE_EQUAL_LESS_GREATER,
     payload: arr
@@ -100,7 +100,7 @@ export function removeFilterEqualLessGreater(arr) {
 }
 
 export function addFilterNotLike(arr) {
-  console.log(`adding ${arr[1]} to ${arr[0]}`);
+  ////console.log(`adding ${arr[1]} to ${arr[0]}`);
   return {
     type: ADD_FILTER_NOT_LIKE,
     payload: arr
@@ -108,7 +108,7 @@ export function addFilterNotLike(arr) {
 }
 
 export function removeFilterNotLike(arr) {
-  console.log(`removing ${arr}`);
+  ////console.log(`removing ${arr}`);
   return {
     type: REMOVE_FILTER_NOT_LIKE,
     payload: arr
@@ -116,7 +116,7 @@ export function removeFilterNotLike(arr) {
 }
 
 export function addFilterLink(arr) {
-  console.log(arr)
+  ////console.log(arr)
   let removeQuotes = arr[1].slice(1, arr[1].length -1)
   arr[1] = removeQuotes;
   return {
@@ -126,14 +126,14 @@ export function addFilterLink(arr) {
 }
 
 export function removeFilterLink() {
-  console.log('Removing linked records');
+  ////console.log('Removing linked records');
   return {
     type: REMOVE_FILTER_LINK
   };
 }
 
 export function addFilterIn(arr) {
-  console.log(`Adding ${arr[0]} in ${arr[1]}`);
+  ////console.log(`Adding ${arr[0]} in ${arr[1]}`);
   return {
     type: ADD_FILTER_IN,
     payload: arr
@@ -141,14 +141,14 @@ export function addFilterIn(arr) {
 }
 
 export function removeFilterIn() {
-  console.log('Removing In');
+  ////console.log('Removing In');
   return {
     type: REMOVE_FILTER_IN
   };
 }
 
 export function addFavorite(name, data) {
-  console.log(`Adding ${name} to favorites`);
+  ////console.log(`Adding ${name} to favorites`);
   return {
     type: ADD_FAVORITE,
     payload: [name, data]
@@ -156,7 +156,7 @@ export function addFavorite(name, data) {
 }
 
 export function removeFavorite(favorite) {
-  console.log(`Removing ${favorite} from favorites`);
+  ////console.log(`Removing ${favorite} from favorites`);
   return {
     type: REMOVE_FAVORITE,
     payload: favorite
@@ -164,7 +164,7 @@ export function removeFavorite(favorite) {
 }
 
 export function addSaved(name, data) {
-  console.log(`Adding ${name} to saved`);
+  ////console.log(`Adding ${name} to saved`);
   return {
     type: ADD_SAVED,
     payload: [name, data]
@@ -172,7 +172,7 @@ export function addSaved(name, data) {
 }
 
 export function removeSaved(saved) {
-  console.log(`Removing ${saved} from saved`);
+  ////console.log(`Removing ${saved} from saved`);
   return {
     type: REMOVE_SAVED,
     payload: saved
@@ -180,7 +180,7 @@ export function removeSaved(saved) {
 }
 
 export function injectSavedState(state) {
-  console.log('Injecting saved state ' + state.tabs );
+  ////console.log('Injecting saved state ' + state.tabs );
   return {
     type: INJECT_SAVED_STATE,
     payload: state
@@ -188,7 +188,7 @@ export function injectSavedState(state) {
 }
 
 export function selectManyRecords(arr) {
-  console.log(arr);
+  ////console.log(arr);
   return {
     type: SELECT_MANY_RECORDS,
     payload: arr
