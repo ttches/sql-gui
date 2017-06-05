@@ -53,7 +53,7 @@ class RecordsSelectContainer extends Component {
     const tableRecord = e.target.dataset.filterinput;
     const filterType = document.querySelector(`[data-filtertype="${tableRecord}"]`).value;
     //If the input is a tabe.record variable, don't put quotes around it
-    ////console.log((splitValue))
+    //console.log((splitValue))
     const filterValue =
     ((splitValue) && (this.props.SQLData[splitValue[0]])
       && this.props.SQLData[splitValue[0]].indexOf(splitValue[1]) > -1)

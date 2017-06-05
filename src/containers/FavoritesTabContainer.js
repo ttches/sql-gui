@@ -24,7 +24,7 @@ handleDisplayToggle() {
 }
 
 handleFavoriteClick(e) {
-  ////console.log(e.target.dataset.tab)
+  //console.log(e.target.dataset.tab)
   const favorite = this.props.favorites[e.target.dataset.tab];
   this.props.injectSavedState(favorite)
 }

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class FiltersIn extends Component {
   render() {
-    ////console.log(`${this.props.tableRecord} in ${this.props.variable}`)
+    //console.log(`${this.props.tableRecord} in ${this.props.variable}`)
     return (
       <span>
         <div style={{display: 'inline-block'}}
